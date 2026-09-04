@@ -1,0 +1,29 @@
+{
+  "version": "0.1.5",
+  "build_id": "20260904-v015-canonical",
+  "plugin_root": "phase-00-developer-hub/files/wp-content/plugins/brando-developer-hub",
+  "verification": "Each remote file must match the public patch byte-for-byte. Git blob SHA can be recomputed with: git hash-object <downloaded-file>.",
+  "files": [
+    {"path":"brando-developer-hub.php","git_blob_sha":"64c8c7a7b34750ad0ad282223b4fe70554274c14","size":2680},
+    {"path":"includes/class-bdh-access.php","git_blob_sha":"5b8e0af83c9725214b74a2159e5081c45463c1ed","size":2293},
+    {"path":"includes/class-bdh-admin.php","git_blob_sha":"5ad989247b0d0fd102819da1d57c39772c5b6880","size":13315},
+    {"path":"includes/class-bdh-core.php","git_blob_sha":"c06adb0ea6a90c04be2455c52fe53c24d23c51fe","size":22445},
+    {"path":"includes/class-bdh-manual-first-push.php","git_blob_sha":"62440f6d4c055c5fa45b7fd4df2b373cec3df29f","size":15005},
+    {"path":"includes/class-bdh-repository-init.php","git_blob_sha":"b48743f672cc3942d7922d64f1d29fbaa97ba674","size":20250},
+    {"path":"includes/class-bdh-rest.php","git_blob_sha":"e416498c8b6cd6bb324716445ee896f455689062","size":9510},
+    {"path":"assets/admin.js","git_blob_sha":"7318f18996460b61eb6813b438d4dec3867ddb9f","size":12899},
+    {"path":"assets/admin.css","git_blob_sha":"a03d9cc0d05fb82e8ed69f0610b458024bc60377","size":4672}
+  ],
+  "forbidden_legacy_symbols": [
+    "BrandoDeveloperHub\\Core",
+    "BrandoDeveloperHub\\RepositoryInit"
+  ],
+  "required_canonical_symbols": [
+    "BDH_Access",
+    "BDH_Core",
+    "BDH_Repository_Init",
+    "BDH_Manual_First_Push",
+    "BDH_REST",
+    "BDH_Admin"
+  ]
+}
