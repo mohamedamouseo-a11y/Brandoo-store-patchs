@@ -1,20 +1,24 @@
-Apply latest `phase-00-developer-hub` v0.1.4 from the PUBLIC repo `mohamedamouseo-a11y/Brandoo-store-patchs/main` to the EXISTING Hostinger WordPress root, preserving paths and all current Developer Hub settings. Do not use the empty OpenHands workspace for WordPress Git work. Do not access/clone/fetch/pull/push the PRIVATE repo `mohamedamouseo-a11y/Brandoo-store`. Do not apply Phase 01.
+Apply latest `phase-00-developer-hub` v0.1.5 from the PUBLIC repo `mohamedamouseo-a11y/Brandoo-store-patchs/main` to the EXISTING Hostinger WordPress root. Do NOT access/clone/fetch/pull/push the PRIVATE repo `mohamedamouseo-a11y/Brandoo-store`. Do not apply Phase 01.
 
-Important v0.1.4 workflow:
-- OpenHands only applies the public patch to the WordPress server.
-- Developer Hub Initialize/Save prepares Git LOCALLY in the real WordPress root: creates local `main`, safe `.gitignore`, `origin`, and the initial local baseline commit.
-- Initialize/Save MUST NOT push anything to GitHub.
-- The user performs the actual first remote push manually later by clicking Push inside Developer Hub.
-- The first manual Push must support an empty private repository with no remote branches, then normal Push/Pull/Sync behavior continues.
+CRITICAL v0.1.5 deployment rule: the server currently has a mixed/stale plugin build. The fatal showed namespaced legacy symbols such as `BrandoDeveloperHub\\Core` / `BrandoDeveloperHub\\RepositoryInit`, while the canonical public patch uses `BDH_Core` / `BDH_Repository_Init`. Therefore DO NOT preserve any old PHP file inside `wp-content/plugins/brando-developer-hub/`.
 
-After applying v0.1.4, verify only:
-- PHP lint passes for all plugin PHP files.
-- WordPress homepage/admin load normally.
-- `/wp-json/brando-developer-hub/v1/health` returns 401/403 when unauthenticated, not 404/500.
-- Developer Hub is Super-Admin/designated-owner only.
-- Empty remote branch list falls back to `main` in the UI.
-- Run repository initialization PREVIEW and, if safe, execute LOCAL INITIALIZATION ONLY. Confirm local `.git`, branch `main`, safe `.gitignore`, local baseline commit/SHA, clean working tree, and configured origin.
-- Confirm no remote push was executed by initialization.
-- Do NOT click/execute Push, Pull, or Sync.
+Use `phase-00-developer-hub/DEPLOYMENT_MANIFEST.v0.1.5.json` as the authoritative file list. Overwrite EVERY listed plugin file byte-for-byte from the public patch. Create `includes/` and `assets/` explicitly first. Upload dependencies/assets first and upload `brando-developer-hub.php` LAST.
 
-Return only: VERSION, FILES_CHANGED, PHP_LINT, WORDPRESS_STATUS, HEALTH_ENDPOINT, LOCAL_GIT_STATUS (branch/SHA/dirty/origin), REMOTE_PUSH_EXECUTED=NO, and BLOCKERS.
+For every listed file, download it back from FTP after upload and verify both size and Git blob SHA using `git hash-object <downloaded-file>` against the manifest. If ANY file does not match, stop and report failure. Do not claim success from FTP status alone.
+
+v0.1.5 also adds a fail-soft bootstrap: if a future partial/mixed deployment is detected, the plugin should disable itself safely instead of taking the whole WordPress site down.
+
+After exact deployment verify only:
+- plugin header version = 0.1.5
+- `BDH_BUILD_ID` = `20260904-v015-canonical`
+- all 9 manifest files match byte-for-byte
+- no server plugin PHP file contains `namespace BrandoDeveloperHub` or instantiates `RepositoryInit`
+- PHP lint passes for all plugin PHP files
+- HOME and `/wp-login.php` return 200
+- `/wp-json/brando-developer-hub/v1/health` returns 401/403 unauthenticated, not 500/404
+- Developer Hub remains Super-Admin/designated-owner only
+- DO NOT execute Initialize, Push, Pull, or Sync in this task
+
+Restore WP_DEBUG to its prior state after verification.
+
+Return only: VERSION, BUILD_ID, MANIFEST_MATCH, LEGACY_SYMBOLS_FOUND, FILES_OVERWRITTEN, PHP_LINT, HOME, WP_LOGIN, HEALTH, DEBUG_RESTORED, PRIVATE_REPO_ACCESSED=NO, BLOCKERS.
