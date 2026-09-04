@@ -29,6 +29,12 @@ The plugin registers its WordPress hooks immediately when the active plugin file
 
 Any temporary MU activation helper used only to activate the plugin must be removed after `brando-developer-hub` is confirmed active. The production plugin must load through WordPress' normal active-plugin mechanism.
 
+## Production alignment — v0.1.2
+
+- The canonical status endpoint used by the admin UI is now `/wp-json/brando-developer-hub/v1/health`, matching the verified Hostinger deployment.
+- The incident also exposed a missing WordPress core file (`wp-includes/rest-api.php`) on the target installation. That is a WordPress-core integrity problem, not a plugin file, so deployment verification must include a WordPress core checksum/integrity check after any such repair.
+- A cached `/wp-json/` namespace index must not be treated as the sole source of truth; direct endpoint behavior on a fresh HTTP request is the required functional check.
+
 ## Files
 
 Copy `files/` into the existing WordPress root, preserving paths, then activate `brando-developer-hub`.
