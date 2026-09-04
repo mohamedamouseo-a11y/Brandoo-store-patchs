@@ -35,6 +35,19 @@ Any temporary MU activation helper used only to activate the plugin must be remo
 - The incident also exposed a missing WordPress core file (`wp-includes/rest-api.php`) on the target installation. That is a WordPress-core integrity problem, not a plugin file, so deployment verification must include a WordPress core checksum/integrity check after any such repair.
 - A cached `/wp-json/` namespace index must not be treated as the sole source of truth; direct endpoint behavior on a fresh HTTP request is the required functional check.
 
+## Reviewed First Push — v0.1.3
+
+v0.1.3 adds a safe first-push workflow for the real WordPress server when the selected GitHub repository is empty.
+
+- The first push runs **inside the WordPress/Hostinger root**, not in an OpenHands local workspace.
+- The Hub verifies the selected GitHub repository is still empty and that the encrypted token has write access before execution.
+- A Preview fingerprints the current safe WordPress baseline before any Git write.
+- Execute creates Git metadata only when the WordPress root has no existing Git history, creates/extends a managed `.gitignore`, creates the initial baseline commit, and pushes `main` using the encrypted Hub token.
+- `wp-config.php`, `.env*`, uploads, caches, backup/runtime directories, logs, IDE files, root `node_modules`, and root `vendor` are excluded from the initial baseline.
+- Existing unrelated Git history or a mismatched `origin` is blocked; it is never overwritten.
+- If files or the remote repository change after Preview, Execute aborts and requires a new review.
+- If a local Brando baseline commit was created but the remote push failed, the workflow can safely retry that reviewed first push after the token/access issue is corrected.
+
 ## Files
 
 Copy `files/` into the existing WordPress root, preserving paths, then activate `brando-developer-hub`.
