@@ -17,7 +17,7 @@ final class BDH_REST {
     }
 
     public static function routes(): void {
-        self::route('/status', 'GET', [self::class, 'status']);
+        self::route('/health', 'GET', [self::class, 'status']);
         self::route('/mcp', 'POST', [self::class, 'mcp']);
         self::route('/github-push-mode', 'POST', [self::class, 'push_mode']);
         self::route('/github-auth', 'POST', [self::class, 'github_auth']);
