@@ -4,6 +4,7 @@ Patch repository for the Brandoo WordPress + WooCommerce store.
 
 ## Roadmap
 
+- Phase 00 — Developer Hub: Super-Admin-only developer console modeled on TCRM Developer Hub, with secure GitHub connection, repository/branch selection, reviewed Push/Pull/Sync, Push Control, MCP/AI context tools and safe source export.
 - Phase 01 — Foundation: custom `brando` theme scaffold, Arabic RTL, WooCommerce support, responsive base, header/footer and asset pipeline.
 - Phase 02 — Home page implementation from the approved mockup.
 - Phase 03 — Shop/category/product listing experience.
