@@ -1,15 +1,21 @@
-Apply Phase 01 from `mohamedamouseo-a11y/Brandoo-store-patchs` to the WordPress project.
+Apply Phase 01 only from PUBLIC repo `mohamedamouseo-a11y/Brandoo-store-patchs/main`.
 
-Copy everything under:
-`phase-01-foundation/files/`
-into the WordPress root preserving paths.
+Copy `phase-01-foundation/files/` to WordPress root preserving paths.
 
 Then:
-1) Confirm WordPress is working.
-2) Ensure WooCommerce is installed and active.
-3) Run PHP syntax checks on all `wp-content/themes/brando/*.php` files.
-4) Activate theme `brando`.
-5) Confirm the site loads, RTL is active for Arabic, and no PHP fatal errors appear.
-6) Do NOT implement the final homepage yet; that is Phase 02.
+- PHP lint theme files
+- activate theme `brando`
+- verify HOME=200, WP_ADMIN=200, RTL loads
+- report WooCommerce ACTIVE/ABSENT only; do not install it
 
-Return only: changed files, checks, theme activation status, WooCommerce status, and any blocker.
+Forbidden: private repo, Git operations, Phase 02.
+
+Return only:
+THEME_ACTIVE=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+RTL=
+WOOCOMMERCE=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
