@@ -52,7 +52,7 @@
       setText('bdh-ai-token', status.aiAccessTokenMasked || '—');
       setText('bdh-context-date', status.latestContextGeneratedAt ? `${t('آخر توليد', 'Last generated')}: ${fmtDate(status.latestContextGeneratedAt)}` : t('لم يتم توليد السياق بعد', 'Context has not been generated yet'));
       const firstPushBox = $('bdh-first-push-box');
-      if (firstPushBox) firstPushBox.hidden = !!status.githubLastSyncAt && !!status.gitAvailable;
+      if (firstPushBox) firstPushBox.hidden = !!status.gitAvailable;
       if (status.githubTokenSet) await loadRepositories(status.githubRepo, status.githubBranch);
     } catch (error) { notice(error.message, 'error'); }
   }
@@ -107,7 +107,7 @@
       const data = await api('/repository-init-preview', { method: 'POST', body: JSON.stringify({ repo, branch }) });
       renderPreview(data);
       const sizeMb = ((data.sizeBytes || 0) / 1048576).toFixed(1);
-      notice(data.blocked ? (data.blockReason || t('أول Push محظور', 'First Push blocked')) : `${t('مراجعة أول Push جاهزة', 'First Push preview ready')} • ${data.fileCount || 0} files • ${sizeMb} MB`, data.blocked ? 'warning' : 'success');
+      notice(data.blocked ? (data.blockReason || t('تهيئة Git محظورة', 'Git initialization blocked')) : `${t('مراجعة تهيئة Git جاهزة', 'Git initialization preview ready')} • ${data.fileCount || 0} files • ${sizeMb} MB`, data.blocked ? 'warning' : 'success');
     } catch (error) { notice(error.message, 'error'); }
     finally { setBusy(false); if (preview) renderPreview(preview); }
   }
@@ -124,7 +124,7 @@
   $('bdh-execute').addEventListener('click', async () => {
     if (!preview || preview.blocked) return;
     const isInit = preview.action === 'initialize';
-    if (!confirm(isInit ? t('تنفيذ أول Push بعد المراجعة؟ سيتم إنشاء Git baseline ورفعه للمستودع الفارغ.', 'Execute reviewed First Push? This will create the Git baseline and push it to the empty repository.') : t(`تنفيذ ${preview.action} بعد المراجعة؟`, `Execute reviewed ${preview.action}?`))) return;
+    if (!confirm(isInit ? t('تهيئة Git محليًا وإنشاء baseline؟ لن يتم أي Push إلى GitHub.', 'Initialize Git locally and create the baseline? No GitHub push will be performed.') : t(`تنفيذ ${preview.action} بعد المراجعة؟`, `Execute reviewed ${preview.action}?`))) return;
     setBusy(true); clearNotice();
     try {
       const endpoint = isInit ? '/repository-init-execute' : '/github-sync-execute';
@@ -133,7 +133,7 @@
         : { action: preview.action, fingerprint: preview.fingerprint, message: $('bdh-commit-message').value.trim() };
       const data = await api(endpoint, { method: 'POST', body: JSON.stringify(body) });
       const logs = $('bdh-logs'); logs.hidden = false; logs.textContent = (data.logs || []).join('\n\n') || t('تمت العملية بنجاح', 'Operation completed successfully');
-      notice(`${isInit ? t('تم أول Push', 'First Push completed') : t('تم التنفيذ', 'Executed')} • ${data.commit || ''}`, 'success');
+      notice(`${isInit ? t('تمت تهيئة Git محليًا — اضغط Push يدويًا عندما تكون جاهزًا', 'Git prepared locally — click Push manually when ready') : t('تم التنفيذ', 'Executed')} • ${data.commit || ''}`, 'success');
       preview = null; await loadStatus();
     } catch (e) { notice(e.message, 'error'); }
     finally { setBusy(false); }
