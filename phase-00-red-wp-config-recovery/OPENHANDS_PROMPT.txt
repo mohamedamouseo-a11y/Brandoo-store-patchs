@@ -1,0 +1,54 @@
+Use only the PUBLIC repo `mohamedamouseo-a11y/Brandoo-store-patchs/main` and the emergency folder `phase-00-red-wp-config-recovery/`.
+
+Goal: recover a missing/truncated WordPress `wp-config.php` on the existing Hostinger WordPress root without exposing or inventing secrets.
+
+Forbidden:
+- Do not access/clone/fetch/pull/push the PRIVATE repo `mohamedamouseo-a11y/Brandoo-store`.
+- Do not run any Git operation.
+- Do not start Phase 01.
+- Do not modify Brando Developer Hub.
+- Do not print DB passwords, salts, tokens, or other secret values.
+- Do not invent DB credentials.
+
+Procedure:
+1. Confirm WordPress root is `domains/darkslategrey-raccoon-868115.hostingersite.com/public_html`.
+2. Obtain the REAL DB_NAME, DB_USER, DB_PASSWORD, and DB_HOST only from authorized Hostinger server/panel sources. If unavailable, STOP with `NEED_DB_CREDENTIALS=YES`.
+3. Never save those values into the public repo or task output.
+4. Copy `phase-00-red-wp-config-recovery/recover-wp-config.php` to a temporary non-web-accessible working path on the server if possible.
+5. Set runtime environment variables only for the recovery process:
+   BRANDO_DB_NAME
+   BRANDO_DB_USER
+   BRANDO_DB_PASSWORD
+   BRANDO_DB_HOST
+   Optional: BRANDO_TABLE_PREFIX
+6. Execute:
+   php recover-wp-config.php /absolute/path/to/public_html
+7. The script must report DB_CONNECTION=PASS and TABLE_PREFIX_VALIDATED=YES before recovery is considered valid.
+8. Verify `public_html/wp-config.php` exists, is >512 bytes, and contains the required constant names/bootstrapping structure without printing values.
+9. Run PHP lint on `wp-config.php`.
+10. Test with cache-busting requests:
+    /
+    /wp-login.php
+    /wp-admin/
+    /wp-json/brando-developer-hub/v1/health
+11. If WordPress still fails, capture a fresh fatal after recovery. Do not make any additional fix in this task.
+12. Remove the temporary recovery script from the server after completion.
+
+Return only:
+DB_CREDENTIALS_SOURCE=
+NEED_DB_CREDENTIALS=YES/NO
+RECOVERY_SCRIPT_RESULT=
+DB_CONNECTION=PASS/FAIL/NOT_RUN
+TABLE_PREFIX_VALIDATED=YES/NO/NOT_RUN
+WP_CONFIG_CREATED=YES/NO
+WP_CONFIG_SIZE=
+WP_CONFIG_LINT=PASS/FAIL/NOT_RUN
+HOME=
+WP_LOGIN=
+WP_ADMIN=
+HEALTH=
+FRESH_FATAL=
+RECOVERY_SCRIPT_REMOVED=YES/NO
+SECRETS_PRINTED=NO
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
