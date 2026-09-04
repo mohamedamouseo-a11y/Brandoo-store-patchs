@@ -1,16 +1,5 @@
-Apply the latest `phase-00-developer-hub` from `mohamedamouseo-a11y/Brandoo-store-patchs` to the EXISTING WordPress root, preserving paths.
+Apply latest `phase-00-developer-hub` v0.1.3 from `mohamedamouseo-a11y/Brandoo-store-patchs/main` to the EXISTING Hostinger WordPress root, preserving paths and current Developer Hub settings. Do not use the empty OpenHands workspace for Git initialization. Do not apply Phase 01.
 
-This includes the v0.1.2 production-alignment hotfix. Activate `brando-developer-hub`. If a temporary MU activation helper such as `wp-content/mu-plugins/activate-brando.php` exists, REMOVE it after the normal plugin is confirmed active. Do not apply Phase 01 yet.
+Verify PHP lint, plugin v0.1.3, `/wp-json/brando-developer-hub/v1/health`, and that the new Super-Admin-only `Review First Push` workflow is visible when the WordPress root has no Git history. Confirm an empty GitHub repo gets `main` as the branch fallback. Run First Push PREVIEW only; confirm it fingerprints the real Hostinger WordPress files, excludes secrets/uploads/cache/backups, and blocks non-empty remotes or mismatched existing Git history. Do NOT execute the first push unless explicitly requested after the preview report.
 
-Verify on fresh normal HTTP requests, not by manually calling `BDH_REST::init()` or `do_action()`:
-- PHP lint passes.
-- WordPress core integrity/checksums pass; specifically ensure `wp-includes/rest-api.php` is present and genuine for the installed WordPress version.
-- `/wp-json/brando-developer-hub/v1/health` resolves as a registered route (401/403 when unauthorized is acceptable; 404 is FAIL).
-- Do not fail only because a cached `/wp-json/` namespaces index is stale if the direct endpoint works on a fresh uncached request; report the cache discrepancy separately.
-- Developer Hub appears only for the WordPress Super Admin/designated owner; normal Administrator and Shop Manager cannot see/open it and REST writes return 403.
-- GitHub token verifies and is stored encrypted, never plaintext.
-- repository/branch selection works.
-- Push/Pull/Sync always require Preview before Execute and blocked states cannot execute.
-- MCP toggle, AI context generation/download, and safe source ZIP download work.
-
-Do not weaken access/security checks. Do not manually bootstrap REST routes as a workaround. Return only changed files, plugin version, activation status, core-integrity check, health-route check, cache discrepancy if any, security checks, and blockers.
+Return only changed files, version, health check, First Push preview result (repo/branch/file count/size/blocked reason), and blockers.
