@@ -41,7 +41,7 @@
   async function loadStatus() {
     clearNotice();
     try {
-      status = await api('/status', { method: 'GET' });
+      status = await api('/health', { method: 'GET' });
       setText('bdh-login', status.githubLogin ? `@${status.githubLogin}` : t('غير متصل', 'Disconnected'));
       $('bdh-running').hidden = !status.pushRunning;
       setText('bdh-path', status.repoPath); setText('bdh-local-branch', status.branch || '—'); setText('bdh-sha', status.shortSha || '—');
