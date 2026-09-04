@@ -1,0 +1,16 @@
+{
+  "version": "0.1.6",
+  "build_id": "20260905-v016-hostinger-api",
+  "files": {
+    "brando-developer-hub.php": "2446dc7c0436c61fbd89246e4c2f84148ef673f0",
+    "includes/class-bdh-access.php": "5b8e0af83c9725214b74a2159e5081c45463c1ed",
+    "includes/class-bdh-admin.php": "5ad989247b0d0fd102819da1d57c39772c5b6880",
+    "includes/class-bdh-api-mode.php": "d1e22911ca1b2da412782bfbff3979045f3359fe",
+    "includes/class-bdh-core.php": "c06adb0ea6a90c04be2455c52fe53c24d23c51fe",
+    "includes/class-bdh-manual-first-push.php": "62440f6d4c055c5fa45b7fd4df2b373cec3df29f",
+    "includes/class-bdh-repository-init.php": "b48743f672cc3942d7922d64f1d29fbaa97ba674",
+    "includes/class-bdh-rest.php": "460fcf3e36bb92345bbe22ed23266205d35033d4",
+    "assets/admin.js": "32190557ae28684a9794af485d28d3b06a3691ca",
+    "assets/admin.css": "a03d9cc0d05fb82e8ed69f0610b458024bc60377"
+  }
+}
