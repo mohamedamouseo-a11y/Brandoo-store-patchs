@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1200px"
+    },
+    "color": {
+      "palette": [
+        { "slug": "brando-orange", "name": "Brando Orange", "color": "#ff6a00" },
+        { "slug": "brando-black", "name": "Brando Black", "color": "#0a0a0a" },
+        { "slug": "brando-white", "name": "Brando White", "color": "#ffffff" }
+      ]
+    }
+  }
+}
