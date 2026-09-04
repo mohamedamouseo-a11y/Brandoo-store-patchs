@@ -54,6 +54,11 @@ final class BDH_Admin {
                     <div class="bdh-status-grid"><div><span><?php echo esc_html(is_rtl() ? 'المسار' : 'Path'); ?></span><strong id="bdh-path">—</strong></div><div><span><?php echo esc_html(is_rtl() ? 'الفرع الحالي' : 'Current branch'); ?></span><strong id="bdh-local-branch">—</strong></div><div><span>SHA</span><strong id="bdh-sha">—</strong></div><div><span><?php echo esc_html(is_rtl() ? 'تغييرات محلية' : 'Dirty'); ?></span><strong id="bdh-dirty">—</strong></div><div><span><?php echo esc_html(is_rtl() ? 'غير مرفوع' : 'Unpushed'); ?></span><strong id="bdh-unpushed">—</strong></div><div><span><?php echo esc_html(is_rtl() ? 'آخر مزامنة' : 'Last sync'); ?></span><strong id="bdh-last-sync">—</strong></div></div>
                     <div class="bdh-commit" id="bdh-last-commit">—</div><label>Push Control</label><select id="bdh-push-mode"><option value="off">Off</option><option value="review">Review</option><option value="auto">Auto</option></select>
                     <div class="bdh-action-buttons"><button class="button" data-preview="pull">↓ Pull</button><button class="button" data-preview="push">↑ Push</button><button class="button button-primary" data-preview="sync">↔ Sync</button></div>
+                    <div class="bdh-info" id="bdh-first-push-box" hidden>
+                        <strong><?php echo esc_html(is_rtl() ? 'أول ربط للمستودع' : 'First Repository Push'); ?></strong>
+                        <p><?php echo esc_html(is_rtl() ? 'لو المستودع البعيد فاضي، راجع تهيئة Git وملف .gitignore والـbaseline قبل أول Push من نفس سيرفر WordPress.' : 'For an empty remote repository, review Git initialization, the safe .gitignore, and the WordPress baseline before the first push from this server.'); ?></p>
+                        <div class="bdh-actions"><button class="button button-primary" id="bdh-init-preview" type="button"><?php echo esc_html(is_rtl() ? 'مراجعة أول Push' : 'Review First Push'); ?></button></div>
+                    </div>
                 </section>
             </div>
 
