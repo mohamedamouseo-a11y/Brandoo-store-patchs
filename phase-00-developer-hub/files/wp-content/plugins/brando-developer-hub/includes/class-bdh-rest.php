@@ -26,6 +26,8 @@ final class BDH_REST {
         self::route('/github-repositories', 'GET', [self::class, 'repositories']);
         self::route('/github-branches', 'GET', [self::class, 'branches']);
         self::route('/github-selection', 'POST', [self::class, 'selection']);
+        self::route('/repository-init-preview', 'POST', [self::class, 'repository_init_preview']);
+        self::route('/repository-init-execute', 'POST', [self::class, 'repository_init_execute']);
         self::route('/github-sync-preview', 'POST', [self::class, 'sync_preview']);
         self::route('/github-sync-execute', 'POST', [self::class, 'sync_execute']);
         self::route('/generate-latest-context', 'POST', [self::class, 'generate_context']);
@@ -95,6 +97,30 @@ final class BDH_REST {
             $state = BDH_Core::save_selection($repo, $branch);
             return rest_ensure_response(['ok'=>true,'githubRepo'=>$state['github_repo'],'githubBranch'=>$state['github_branch']]);
         } catch (Throwable $e) { return self::error($e); }
+    }
+
+    public static function repository_init_preview(WP_REST_Request $request): WP_REST_Response|WP_Error {
+        try {
+            $state = BDH_Core::state();
+            $repo = trim((string) $request->get_param('repo')) ?: (string)($state['github_repo'] ?? '');
+            $branch = trim((string) $request->get_param('branch')) ?: (string)($state['github_branch'] ?? 'main');
+            return rest_ensure_response(BDH_Repository_Init::preview($repo, $branch ?: 'main'));
+        } catch (Throwable $e) {
+            return self::error($e, str_contains($e->getMessage(), 'already running') ? 409 : 400);
+        }
+    }
+
+    public static function repository_init_execute(WP_REST_Request $request): WP_REST_Response|WP_Error {
+        try {
+            $mode = (string) (BDH_Core::state()['github_push_mode'] ?? 'review');
+            if ($mode === 'off') { throw new RuntimeException('GitHub write operations are disabled by Push Control.'); }
+            return rest_ensure_response(BDH_Repository_Init::execute(
+                sanitize_text_field((string) $request->get_param('fingerprint')),
+                sanitize_text_field((string) $request->get_param('message'))
+            ));
+        } catch (Throwable $e) {
+            return self::error($e, str_contains($e->getMessage(), 'already running') ? 409 : 400);
+        }
     }
 
     public static function sync_preview(WP_REST_Request $request): WP_REST_Response|WP_Error {
