@@ -1,15 +1,16 @@
 Apply the latest `phase-00-developer-hub` from `mohamedamouseo-a11y/Brandoo-store-patchs` to the EXISTING WordPress root, preserving paths.
 
-This includes the v0.1.1 REST bootstrap hotfix. Activate `brando-developer-hub`. If a temporary MU activation helper such as `wp-content/mu-plugins/activate-brando.php` was created, REMOVE it after the normal plugin is confirmed active. Do not apply Phase 01 yet.
+This includes the v0.1.2 production-alignment hotfix. Activate `brando-developer-hub`. If a temporary MU activation helper such as `wp-content/mu-plugins/activate-brando.php` exists, REMOVE it after the normal plugin is confirmed active. Do not apply Phase 01 yet.
 
-Verify on a fresh normal HTTP request, not by manually calling `BDH_REST::init()` or `do_action()`:
+Verify on fresh normal HTTP requests, not by manually calling `BDH_REST::init()` or `do_action()`:
 - PHP lint passes.
-- `brando-developer-hub/v1` appears in the real `/wp-json/` namespaces list.
-- `/wp-json/brando-developer-hub/v1/status` resolves as a registered route (401/403 when unauthorized is acceptable; 404 is FAIL).
+- WordPress core integrity/checksums pass; specifically ensure `wp-includes/rest-api.php` is present and genuine for the installed WordPress version.
+- `/wp-json/brando-developer-hub/v1/health` resolves as a registered route (401/403 when unauthorized is acceptable; 404 is FAIL).
+- Do not fail only because a cached `/wp-json/` namespaces index is stale if the direct endpoint works on a fresh uncached request; report the cache discrepancy separately.
 - Developer Hub appears only for the WordPress Super Admin/designated owner; normal Administrator and Shop Manager cannot see/open it and REST writes return 403.
 - GitHub token verifies and is stored encrypted, never plaintext.
 - repository/branch selection works.
 - Push/Pull/Sync always require Preview before Execute and blocked states cannot execute.
 - MCP toggle, AI context generation/download, and safe source ZIP download work.
 
-Do not weaken access/security checks. Do not manually bootstrap REST routes as a workaround. Return only changed files, plugin version, activation status, namespace/status-route checks, security checks, and blockers.
+Do not weaken access/security checks. Do not manually bootstrap REST routes as a workaround. Return only changed files, plugin version, activation status, core-integrity check, health-route check, cache discrepancy if any, security checks, and blockers.
