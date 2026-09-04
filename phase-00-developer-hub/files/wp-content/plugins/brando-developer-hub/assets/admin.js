@@ -51,6 +51,8 @@
       $('bdh-push-mode').value = status.githubPushMode || 'review'; $('bdh-mcp').checked = !!status.mcpEnabled; $('bdh-ai-url').value = status.aiAccessUrl || '';
       setText('bdh-ai-token', status.aiAccessTokenMasked || '—');
       setText('bdh-context-date', status.latestContextGeneratedAt ? `${t('آخر توليد', 'Last generated')}: ${fmtDate(status.latestContextGeneratedAt)}` : t('لم يتم توليد السياق بعد', 'Context has not been generated yet'));
+      const firstPushBox = $('bdh-first-push-box');
+      if (firstPushBox) firstPushBox.hidden = !!status.githubLastSyncAt && !!status.gitAvailable;
       if (status.githubTokenSet) await loadRepositories(status.githubRepo, status.githubBranch);
     } catch (error) { notice(error.message, 'error'); }
   }
@@ -68,7 +70,12 @@
     if (!repo) return;
     try {
       const data = await api(`/github-branches?repo=${encodeURIComponent(repo)}`, { method: 'GET' }); const select = $('bdh-branch'); select.replaceChildren();
-      (data.branches || []).forEach((branch) => { const option = document.createElement('option'); option.value = branch; option.textContent = branch; if (branch === selected) option.selected = true; select.appendChild(option); });
+      const branches = data.branches || [];
+      branches.forEach((branch) => { const option = document.createElement('option'); option.value = branch; option.textContent = branch; if (branch === selected) option.selected = true; select.appendChild(option); });
+      if (!branches.length) {
+        const branch = selected || 'main';
+        const option = document.createElement('option'); option.value = branch; option.textContent = `${branch} ${t('(مستودع فارغ)', '(empty repository)')}`; option.selected = true; select.appendChild(option);
+      }
       if (!select.value && select.options.length) select.selectedIndex = 0;
     } catch (error) { notice(error.message, 'error'); }
   }
@@ -90,15 +97,47 @@
     finally { setBusy(false); if (preview) renderPreview(preview); }
   }
 
+  async function reviewFirstPush() {
+    if (busy) return;
+    const repo = $('bdh-repo').value;
+    const branch = $('bdh-branch').value || 'main';
+    if (!repo) return notice(t('اختر المستودع أولاً', 'Choose the repository first'), 'warning');
+    setBusy(true); clearNotice();
+    try {
+      const data = await api('/repository-init-preview', { method: 'POST', body: JSON.stringify({ repo, branch }) });
+      renderPreview(data);
+      const sizeMb = ((data.sizeBytes || 0) / 1048576).toFixed(1);
+      notice(data.blocked ? (data.blockReason || t('أول Push محظور', 'First Push blocked')) : `${t('مراجعة أول Push جاهزة', 'First Push preview ready')} • ${data.fileCount || 0} files • ${sizeMb} MB`, data.blocked ? 'warning' : 'success');
+    } catch (error) { notice(error.message, 'error'); }
+    finally { setBusy(false); if (preview) renderPreview(preview); }
+  }
+
   $('bdh-toggle-token').addEventListener('click', () => { $('bdh-token').type = $('bdh-token').type === 'password' ? 'text' : 'password'; });
   $('bdh-verify').addEventListener('click', async () => { const token = $('bdh-token').value.trim(); if (!token) return notice(t('أدخل GitHub Token', 'Enter GitHub token'), 'warning'); setBusy(true); try { const data = await api('/github-auth', { method: 'POST', body: JSON.stringify({ token }) }); $('bdh-token').value = ''; notice(`${t('تم التحقق', 'Verified')}: @${data.login}`, 'success'); await loadStatus(); } catch (e) { notice(e.message, 'error'); } finally { setBusy(false); } });
   $('bdh-disconnect').addEventListener('click', async () => { if (!confirm(t('فصل GitHub وحذف التوكن المشفر؟', 'Disconnect GitHub and remove the encrypted token?'))) return; setBusy(true); try { await api('/github-connection', { method: 'DELETE' }); preview = null; notice(t('تم فصل GitHub', 'GitHub disconnected'), 'success'); await loadStatus(); } catch (e) { notice(e.message, 'error'); } finally { setBusy(false); } });
   $('bdh-repo').addEventListener('change', async (event) => { const repo = event.target.value; if (repo) await loadBranches(repo, event.target.selectedOptions[0]?.dataset.defaultBranch || 'main'); });
-  $('bdh-save-selection').addEventListener('click', async () => { const repo = $('bdh-repo').value, branch = $('bdh-branch').value; if (!repo || !branch) return notice(t('اختر المستودع والفرع', 'Choose repository and branch'), 'warning'); setBusy(true); try { await api('/github-selection', { method: 'POST', body: JSON.stringify({ repo, branch }) }); notice(t('تم حفظ المستودع والفرع', 'Repository and branch saved'), 'success'); await loadStatus(); } catch (e) { notice(e.message, 'error'); } finally { setBusy(false); } });
+  $('bdh-save-selection').addEventListener('click', async () => { const repo = $('bdh-repo').value, branch = $('bdh-branch').value || 'main'; if (!repo) return notice(t('اختر المستودع', 'Choose repository'), 'warning'); setBusy(true); try { await api('/github-selection', { method: 'POST', body: JSON.stringify({ repo, branch }) }); notice(t('تم حفظ المستودع والفرع', 'Repository and branch saved'), 'success'); await loadStatus(); } catch (e) { notice(e.message, 'error'); } finally { setBusy(false); } });
   $('bdh-push-mode').addEventListener('change', async (event) => { const mode = event.target.value; try { await api('/github-push-mode', { method: 'POST', body: JSON.stringify({ mode }) }); if (status) status.githubPushMode = mode; notice(`Push Control: ${mode}`, 'success'); } catch (e) { notice(e.message, 'error'); } });
   app.querySelectorAll('[data-preview]').forEach((button) => button.addEventListener('click', () => review(button.dataset.preview)));
-  $('bdh-refresh').addEventListener('click', () => { if (preview?.action) review(preview.action); });
-  $('bdh-execute').addEventListener('click', async () => { if (!preview || preview.blocked) return; if (!confirm(t(`تنفيذ ${preview.action} بعد المراجعة؟`, `Execute reviewed ${preview.action}?`))) return; setBusy(true); clearNotice(); try { const data = await api('/github-sync-execute', { method: 'POST', body: JSON.stringify({ action: preview.action, fingerprint: preview.fingerprint, message: $('bdh-commit-message').value.trim() }) }); const logs = $('bdh-logs'); logs.hidden = false; logs.textContent = (data.logs || []).join('\n\n') || t('تمت العملية بنجاح', 'Operation completed successfully'); notice(`${t('تم التنفيذ', 'Executed')} • ${data.commit || ''}`, 'success'); preview = null; await loadStatus(); } catch (e) { notice(e.message, 'error'); } finally { setBusy(false); } });
+  $('bdh-init-preview')?.addEventListener('click', reviewFirstPush);
+  $('bdh-refresh').addEventListener('click', () => { if (preview?.action === 'initialize') reviewFirstPush(); else if (preview?.action) review(preview.action); });
+  $('bdh-execute').addEventListener('click', async () => {
+    if (!preview || preview.blocked) return;
+    const isInit = preview.action === 'initialize';
+    if (!confirm(isInit ? t('تنفيذ أول Push بعد المراجعة؟ سيتم إنشاء Git baseline ورفعه للمستودع الفارغ.', 'Execute reviewed First Push? This will create the Git baseline and push it to the empty repository.') : t(`تنفيذ ${preview.action} بعد المراجعة؟`, `Execute reviewed ${preview.action}?`))) return;
+    setBusy(true); clearNotice();
+    try {
+      const endpoint = isInit ? '/repository-init-execute' : '/github-sync-execute';
+      const body = isInit
+        ? { fingerprint: preview.fingerprint, message: $('bdh-commit-message').value.trim() }
+        : { action: preview.action, fingerprint: preview.fingerprint, message: $('bdh-commit-message').value.trim() };
+      const data = await api(endpoint, { method: 'POST', body: JSON.stringify(body) });
+      const logs = $('bdh-logs'); logs.hidden = false; logs.textContent = (data.logs || []).join('\n\n') || t('تمت العملية بنجاح', 'Operation completed successfully');
+      notice(`${isInit ? t('تم أول Push', 'First Push completed') : t('تم التنفيذ', 'Executed')} • ${data.commit || ''}`, 'success');
+      preview = null; await loadStatus();
+    } catch (e) { notice(e.message, 'error'); }
+    finally { setBusy(false); }
+  });
   $('bdh-mcp').addEventListener('change', async (event) => { try { await api('/mcp', { method: 'POST', body: JSON.stringify({ enabled: event.target.checked }) }); notice(t('تم تحديث حالة MCP', 'MCP status updated'), 'success'); } catch (e) { event.target.checked = !event.target.checked; notice(e.message, 'error'); } });
   $('bdh-generate-context').addEventListener('click', async () => { setBusy(true); try { const data = await api('/generate-latest-context', { method: 'POST', body: '{}' }); notice(`${t('تم توليد السياق', 'Context generated')} • ${data.fileCount} files`, 'success'); await loadStatus(); } catch (e) { notice(e.message, 'error'); } finally { setBusy(false); } });
   $('bdh-copy-ai').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('bdh-ai-url').value); notice(t('تم نسخ رابط API', 'API URL copied'), 'success'); } catch { notice(t('تعذر النسخ', 'Copy failed'), 'error'); } });
