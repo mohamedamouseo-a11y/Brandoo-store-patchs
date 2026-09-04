@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Brando Developer Hub
  * Description: Super-admin-only Developer Hub for Brando, modeled on the TCRM Developer Hub workflow.
- * Version: 0.1.6
+ * Version: 0.1.7
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Author: Brando
@@ -10,8 +10,8 @@
 
 if (!defined('ABSPATH')) { exit; }
 
-define('BDH_VERSION', '0.1.6');
-define('BDH_BUILD_ID', '20260905-v016-hostinger-api');
+define('BDH_VERSION', '0.1.7');
+define('BDH_BUILD_ID', '20260905-v017-empty-repo-bootstrap');
 define('BDH_FILE', __FILE__);
 define('BDH_DIR', plugin_dir_path(__FILE__));
 define('BDH_URL', plugin_dir_url(__FILE__));
@@ -37,7 +37,7 @@ $bdh_required_files = [
 
 foreach ($bdh_required_files as $bdh_relative_file) {
     if (!is_file(BDH_DIR . $bdh_relative_file)) {
-        $bdh_fail_soft('missing required file: ' . $bdh_relative_file . '. Re-deploy all v0.1.6 plugin files byte-for-byte.');
+        $bdh_fail_soft('missing required file: ' . $bdh_relative_file . '. Re-deploy all v0.1.7 plugin files byte-for-byte.');
         return;
     }
 }
@@ -62,7 +62,7 @@ $bdh_required_classes = [
 
 foreach ($bdh_required_classes as $bdh_class) {
     if (!class_exists($bdh_class, false)) {
-        $bdh_fail_soft('canonical class ' . $bdh_class . ' is missing. Re-deploy every v0.1.6 file from the public patch repo.');
+        $bdh_fail_soft('canonical class ' . $bdh_class . ' is missing. Re-deploy every v0.1.7 file from the public patch repo.');
         return;
     }
 }
