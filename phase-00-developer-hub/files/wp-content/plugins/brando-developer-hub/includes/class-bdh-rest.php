@@ -104,7 +104,12 @@ final class BDH_REST {
             $state = BDH_Core::state();
             $repo = trim((string) $request->get_param('repo')) ?: (string)($state['github_repo'] ?? '');
             $branch = trim((string) $request->get_param('branch')) ?: (string)($state['github_branch'] ?? 'main');
-            return rest_ensure_response(BDH_Repository_Init::preview($repo, $branch ?: 'main'));
+            $review = BDH_Repository_Init::preview($repo, $branch ?: 'main');
+            if (empty($review['blocked'])) {
+                $review['expectedAction'] = 'initialize_local_baseline';
+                $review['syncState'] = 'local_initialization';
+            }
+            return rest_ensure_response($review);
         } catch (Throwable $e) {
             return self::error($e, str_contains($e->getMessage(), 'already running') ? 409 : 400);
         }
@@ -114,7 +119,7 @@ final class BDH_REST {
         try {
             $mode = (string) (BDH_Core::state()['github_push_mode'] ?? 'review');
             if ($mode === 'off') { throw new RuntimeException('GitHub write operations are disabled by Push Control.'); }
-            return rest_ensure_response(BDH_Repository_Init::execute(
+            return rest_ensure_response(BDH_Manual_First_Push::prepare_local(
                 sanitize_text_field((string) $request->get_param('fingerprint')),
                 sanitize_text_field((string) $request->get_param('message'))
             ));
@@ -124,19 +129,28 @@ final class BDH_REST {
     }
 
     public static function sync_preview(WP_REST_Request $request): WP_REST_Response|WP_Error {
-        try { return rest_ensure_response(BDH_Core::sync_preview((string) $request->get_param('action'))); }
-        catch (Throwable $e) { return self::error($e, str_contains($e->getMessage(), 'already running') ? 409 : 400); }
+        try {
+            $action = sanitize_key((string) $request->get_param('action'));
+            $manual = BDH_Manual_First_Push::preview_manual_push($action);
+            if (is_array($manual)) { return rest_ensure_response($manual); }
+            return rest_ensure_response(BDH_Core::sync_preview($action));
+        } catch (Throwable $e) {
+            return self::error($e, str_contains($e->getMessage(), 'already running') ? 409 : 400);
+        }
     }
 
     public static function sync_execute(WP_REST_Request $request): WP_REST_Response|WP_Error {
         try {
             $mode = (string) (BDH_Core::state()['github_push_mode'] ?? 'review');
             if ($mode === 'off') { throw new RuntimeException('GitHub write operations are disabled by Push Control.'); }
-            return rest_ensure_response(BDH_Core::sync_execute(
-                sanitize_key((string) $request->get_param('action')),
-                sanitize_text_field((string) $request->get_param('fingerprint')),
-                sanitize_text_field((string) $request->get_param('message'))
-            ));
+            $action = sanitize_key((string) $request->get_param('action'));
+            $fingerprint = sanitize_text_field((string) $request->get_param('fingerprint'));
+            $message = sanitize_text_field((string) $request->get_param('message'));
+            if ($action === 'push') {
+                $manual = BDH_Manual_First_Push::execute_manual_push_if_matching($fingerprint, $message);
+                if (is_array($manual)) { return rest_ensure_response($manual); }
+            }
+            return rest_ensure_response(BDH_Core::sync_execute($action, $fingerprint, $message));
         } catch (Throwable $e) { return self::error($e, str_contains($e->getMessage(), 'already running') ? 409 : 400); }
     }
 
