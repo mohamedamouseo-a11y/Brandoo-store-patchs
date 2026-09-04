@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Brando Developer Hub
  * Description: Super-admin-only Developer Hub for Brando, modeled on the TCRM Developer Hub workflow.
- * Version: 0.1.5
+ * Version: 0.1.6
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Author: Brando
@@ -10,8 +10,8 @@
 
 if (!defined('ABSPATH')) { exit; }
 
-define('BDH_VERSION', '0.1.5');
-define('BDH_BUILD_ID', '20260904-v015-canonical');
+define('BDH_VERSION', '0.1.6');
+define('BDH_BUILD_ID', '20260905-v016-hostinger-api');
 define('BDH_FILE', __FILE__);
 define('BDH_DIR', plugin_dir_path(__FILE__));
 define('BDH_URL', plugin_dir_url(__FILE__));
@@ -30,13 +30,14 @@ $bdh_required_files = [
     'includes/class-bdh-core.php',
     'includes/class-bdh-repository-init.php',
     'includes/class-bdh-manual-first-push.php',
+    'includes/class-bdh-api-mode.php',
     'includes/class-bdh-rest.php',
     'includes/class-bdh-admin.php',
 ];
 
 foreach ($bdh_required_files as $bdh_relative_file) {
     if (!is_file(BDH_DIR . $bdh_relative_file)) {
-        $bdh_fail_soft('missing required file: ' . $bdh_relative_file . '. Re-deploy all v0.1.5 plugin files byte-for-byte.');
+        $bdh_fail_soft('missing required file: ' . $bdh_relative_file . '. Re-deploy all v0.1.6 plugin files byte-for-byte.');
         return;
     }
 }
@@ -45,6 +46,7 @@ require_once BDH_DIR . 'includes/class-bdh-access.php';
 require_once BDH_DIR . 'includes/class-bdh-core.php';
 require_once BDH_DIR . 'includes/class-bdh-repository-init.php';
 require_once BDH_DIR . 'includes/class-bdh-manual-first-push.php';
+require_once BDH_DIR . 'includes/class-bdh-api-mode.php';
 require_once BDH_DIR . 'includes/class-bdh-rest.php';
 require_once BDH_DIR . 'includes/class-bdh-admin.php';
 
@@ -53,16 +55,14 @@ $bdh_required_classes = [
     'BDH_Core',
     'BDH_Repository_Init',
     'BDH_Manual_First_Push',
+    'BDH_API_Mode',
     'BDH_REST',
     'BDH_Admin',
 ];
 
 foreach ($bdh_required_classes as $bdh_class) {
     if (!class_exists($bdh_class, false)) {
-        $legacy_hint = (class_exists('BrandoDeveloperHub\\Core', false) || class_exists('BrandoDeveloperHub\\RepositoryInit', false))
-            ? ' Legacy namespaced files were detected; the server has a mixed/stale build.'
-            : '';
-        $bdh_fail_soft('canonical class ' . $bdh_class . ' is missing.' . $legacy_hint . ' Re-deploy every v0.1.5 file from the public patch repo; do not preserve old PHP files.');
+        $bdh_fail_soft('canonical class ' . $bdh_class . ' is missing. Re-deploy every v0.1.6 file from the public patch repo.');
         return;
     }
 }
@@ -72,7 +72,6 @@ register_activation_hook(__FILE__, static function (): void {
     BDH_Core::ensure_defaults();
 });
 
-// Register hooks immediately when WordPress loads the active plugin.
 BDH_Access::init();
 BDH_REST::init();
 BDH_Admin::init();
