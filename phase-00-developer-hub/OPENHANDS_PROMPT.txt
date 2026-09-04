@@ -1,0 +1,14 @@
+Apply `phase-00-developer-hub` from `mohamedamouseo-a11y/Brandoo-store-patchs` to the EXISTING WordPress root, preserving paths.
+
+Activate `brando-developer-hub`. Do not apply Phase 01 yet.
+
+Verify:
+- PHP lint passes.
+- Developer Hub appears only for the WordPress Super Admin/designated owner; normal Administrator and Shop Manager cannot see/open it and REST writes return 403.
+- Status loads without PHP fatal errors.
+- GitHub token verifies and is stored encrypted, never plaintext.
+- repository/branch selection works.
+- Push/Pull/Sync always require Preview before Execute and blocked states cannot execute.
+- MCP toggle, AI context generation/download, and safe source ZIP download work.
+
+Do not weaken access/security checks. Return only changed files, activation status, checks, and blockers.
