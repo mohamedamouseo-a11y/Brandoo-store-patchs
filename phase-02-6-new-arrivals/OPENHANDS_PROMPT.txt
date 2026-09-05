@@ -1,0 +1,37 @@
+Apply Phase 02.6 from this exact PUBLIC commit only:
+mohamedamouseo-a11y/Brandoo-store-patchs
+commit: 5d23075bed9e997b7efe561fc1884758d8f080eb
+path: phase-02-6-new-arrivals/files/
+
+Force fresh download and overwrite matching live files.
+No delete/reset.
+
+Verify:
+- THEME_VERSION=0.2.6
+- PHP lint
+- HOME/WP_ADMIN=200
+- new-arrivals.css=200
+- `وصل حديثًا` renders
+- 4 WooCommerce products render in New Arrivals
+- Hero + Categories + Best Sellers + Promo still visible
+
+No private repo.
+No Git.
+No Phase 02.7.
+
+Return only:
+PATCH_COMMIT=
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+NEW_ARRIVALS_CSS=
+NEW_ARRIVALS_TITLE=
+NEW_ARRIVALS_PRODUCTS=
+REAL_WOO_PRODUCTS_USED=
+HERO_VISIBLE=
+CATEGORIES_VISIBLE=
+BEST_SELLERS_VISIBLE=
+PROMO_VISIBLE=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
