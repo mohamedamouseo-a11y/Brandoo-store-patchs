@@ -1,0 +1,43 @@
+Apply Phase 02.8 from this exact PUBLIC commit only:
+mohamedamouseo-a11y/Brandoo-store-patchs
+commit: e91422ca63fcc7e7738e2abf8ffd812769f5d92f
+path: phase-02-8-final-polish/files/
+
+Copy ONLY these 3 files:
+- wp-content/themes/brando/style.css
+- wp-content/themes/brando/functions.php
+- wp-content/themes/brando/assets/css/final-polish.css
+
+Do NOT fetch/upload/touch front-page.php, footer.php, main.css, rtl.css, or any other file.
+
+Verify:
+- THEME_VERSION=0.2.8
+- PHP lint
+- HOME/WP_ADMIN=200
+- final-polish.css=200
+- Hero, Categories, Best Sellers, Promo, New Arrivals, Trust, Newsletter, Footer all still visible
+- front-page.php unchanged and >10KB
+- footer.php unchanged and >5KB
+
+No private repo.
+No Git.
+
+Return only:
+PATCH_COMMIT=
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+FINAL_POLISH_CSS=
+HERO_VISIBLE=
+CATEGORIES_VISIBLE=
+BEST_SELLERS_VISIBLE=
+PROMO_VISIBLE=
+NEW_ARRIVALS_VISIBLE=
+TRUST_VISIBLE=
+NEWSLETTER_VISIBLE=
+FOOTER_VISIBLE=
+FRONT_PAGE_UNCHANGED=
+FOOTER_UNCHANGED=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
