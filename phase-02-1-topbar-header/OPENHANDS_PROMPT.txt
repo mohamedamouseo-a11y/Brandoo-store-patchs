@@ -1,0 +1,17 @@
+Apply Phase 02.1 from PUBLIC repo only:
+mohamedamouseo-a11y/Brandoo-store-patchs/main
+path: phase-02-1-topbar-header/files/
+
+Copy recursively preserving paths and create missing subdirectories.
+Then PHP lint changed PHP, keep theme brando active, test HOME/WP_ADMIN, and verify header.css + header.js are reachable.
+Do not access private repo, do not run Git, do not start Hero/Phase 02.2.
+
+Return only:
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+HEADER_CSS=
+HEADER_JS=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
