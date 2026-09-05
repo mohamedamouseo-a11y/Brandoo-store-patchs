@@ -1,0 +1,37 @@
+Apply Phase 02.7 from this exact PUBLIC commit only:
+mohamedamouseo-a11y/Brandoo-store-patchs
+commit: 2ef42ae528a347be1fbfde1af50e310bf881089e
+path: phase-02-7-trust-newsletter-footer/files/
+
+Force fresh overwrite of matching files only. No delete/reset.
+
+Verify:
+- THEME_VERSION=0.2.7
+- PHP lint
+- HOME/WP_ADMIN=200
+- footer.css=200
+- 4 trust items render
+- newsletter heading + email field + subscribe button render
+- footer brand + shopping + customer service + contact + payment methods render
+- New Arrivals still visible
+
+No private repo.
+No Git.
+No Phase 02.8.
+
+Return only:
+PATCH_COMMIT=
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+FOOTER_CSS=
+TRUST_ITEMS=
+NEWSLETTER_VISIBLE=
+NEWSLETTER_EMAIL=
+NEWSLETTER_BUTTON=
+FOOTER_COLUMNS=
+PAYMENT_METHODS_VISIBLE=
+NEW_ARRIVALS_VISIBLE=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
