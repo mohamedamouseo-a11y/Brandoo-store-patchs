@@ -1,19 +1,20 @@
-Apply Phase 02.6 from this exact PUBLIC commit only:
+Apply Phase 02.6.2 from this exact PUBLIC commit only:
 mohamedamouseo-a11y/Brandoo-store-patchs
-commit: 5d23075bed9e997b7efe561fc1884758d8f080eb
+commit: 0d671a9b18b311e33b3831af115316f215351020
 path: phase-02-6-new-arrivals/files/
 
-Force fresh download and overwrite matching live files.
+Force fresh overwrite of matching files only.
 No delete/reset.
 
 Verify:
-- THEME_VERSION=0.2.6
+- THEME_VERSION=0.2.6.2
 - PHP lint
 - HOME/WP_ADMIN=200
-- new-arrivals.css=200
-- `وصل حديثًا` renders
-- 4 WooCommerce products render in New Arrivals
-- Hero + Categories + Best Sellers + Promo still visible
+- `وصل حديثًا`
+- exactly 4 li.product inside section.brando-new-arrivals
+- each card has image, title, price and button
+- report how many are REAL vs DEMO fallback
+- Promo still visible
 
 No private repo.
 No Git.
@@ -25,13 +26,14 @@ THEME_VERSION=
 PHP_LINT=
 HOME=
 WP_ADMIN=
-NEW_ARRIVALS_CSS=
 NEW_ARRIVALS_TITLE=
 NEW_ARRIVALS_PRODUCTS=
-REAL_WOO_PRODUCTS_USED=
-HERO_VISIBLE=
-CATEGORIES_VISIBLE=
-BEST_SELLERS_VISIBLE=
+REAL_PRODUCTS=
+DEMO_PRODUCTS=
+PRODUCT_IMAGES=
+PRODUCT_TITLES=
+PRODUCT_PRICES=
+PRODUCT_BUTTONS=
 PROMO_VISIBLE=
 PRIVATE_REPO_ACCESSED=NO
 BLOCKERS=
