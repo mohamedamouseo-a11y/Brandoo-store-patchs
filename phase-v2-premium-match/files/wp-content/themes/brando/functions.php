@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('BRANDO_THEME_VERSION', '0.3.2');
+define('BRANDO_THEME_VERSION', '0.3.3');
 
 function brando_setup(): void
 {
