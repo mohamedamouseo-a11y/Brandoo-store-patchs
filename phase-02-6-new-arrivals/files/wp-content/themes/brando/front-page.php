@@ -325,38 +325,99 @@ $brando_best_sellers = array_slice($brando_best_sellers, 0, 4);
             </header>
 
             <div class="brando-new-arrivals__products">
-                <?php if (class_exists('WooCommerce') && function_exists('wc_get_template_part')) : ?>
-                    <?php
-                    $brando_new_arrivals_query = new WP_Query([
+                <?php
+                $brando_new_arrivals = [];
+                if (class_exists('WooCommerce') && function_exists('wc_get_product')) {
+                    $latest_query = new WP_Query([
                         'post_type'           => 'product',
                         'post_status'         => 'publish',
                         'posts_per_page'      => 4,
+                        'fields'              => 'ids',
                         'orderby'             => 'date',
                         'order'               => 'DESC',
                         'no_found_rows'       => true,
                         'ignore_sticky_posts' => true,
                     ]);
-                    ?>
-                    <?php if ($brando_new_arrivals_query->have_posts()) : ?>
-                        <?php woocommerce_product_loop_start(); ?>
-                        <?php while ($brando_new_arrivals_query->have_posts()) : $brando_new_arrivals_query->the_post(); ?>
-                            <?php
-                            global $product;
-                            $product = wc_get_product(get_the_ID());
-                            if (!$product || !$product->is_visible()) {
-                                continue;
+
+                    foreach ($latest_query->posts as $product_id) {
+                        $product = wc_get_product($product_id);
+                        if (!$product || !$product->is_visible()) {
+                            continue;
+                        }
+
+                        $image_id = (int) $product->get_image_id();
+                        $image = $image_id ? wp_get_attachment_image_url($image_id, 'woocommerce_thumbnail') : '';
+                        if (!$image && function_exists('wc_placeholder_img_src')) {
+                            $image = wc_placeholder_img_src('woocommerce_thumbnail');
+                        }
+
+                        $brando_new_arrivals[] = [
+                            'real'       => true,
+                            'id'         => (int) $product->get_id(),
+                            'sku'        => (string) $product->get_sku(),
+                            'name'       => $product->get_name(),
+                            'image'      => $image ?: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&fm=jpg&q=82&w=800',
+                            'url'        => $product->get_permalink(),
+                            'price_html' => $product->get_price_html(),
+                            'cart_url'   => $product->add_to_cart_url(),
+                            'cart_text'  => $product->add_to_cart_text(),
+                            'ajax'       => $product->supports('ajax_add_to_cart') && $product->is_purchasable() && $product->is_in_stock(),
+                        ];
+                    }
+                }
+
+                $brando_new_arrival_fallbacks = [
+                    ['name' => 'طقم أدوات تحضير عصري', 'image' => 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&fm=jpg&q=82&w=800', 'price_text' => '149 ر.س'],
+                    ['name' => 'علب تخزين محكمة الإغلاق', 'image' => 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&fm=jpg&q=82&w=800', 'price_text' => '129 ر.س'],
+                    ['name' => 'طقم تقديم يومي أنيق', 'image' => 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&fm=jpg&q=82&w=800', 'price_text' => '189 ر.س'],
+                    ['name' => 'مجموعة أدوات خبز جديدة', 'image' => 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&fm=jpg&q=82&w=800', 'price_text' => '169 ر.س'],
+                ];
+
+                $new_fallback_index = 0;
+                while (count($brando_new_arrivals) < 4 && $new_fallback_index < count($brando_new_arrival_fallbacks)) {
+                    $fallback = $brando_new_arrival_fallbacks[$new_fallback_index];
+                    $brando_new_arrivals[] = [
+                        'real'       => false,
+                        'id'         => 0,
+                        'sku'        => '',
+                        'name'       => $fallback['name'],
+                        'image'      => $fallback['image'],
+                        'url'        => $shop_url,
+                        'price_text' => $fallback['price_text'],
+                        'cart_url'   => $shop_url,
+                        'cart_text'  => 'تسوق الآن',
+                        'ajax'       => false,
+                    ];
+                    $new_fallback_index++;
+                }
+                $brando_new_arrivals = array_slice($brando_new_arrivals, 0, 4);
+                ?>
+
+                <div class="woocommerce columns-4">
+                    <ul class="products columns-4">
+                        <?php foreach ($brando_new_arrivals as $card) :
+                            $new_cart_classes = 'button product_type_simple';
+                            if (!empty($card['ajax'])) {
+                                $new_cart_classes .= ' add_to_cart_button ajax_add_to_cart';
                             }
-                            wc_get_template_part('content', 'product');
-                            ?>
-                        <?php endwhile; ?>
-                        <?php woocommerce_product_loop_end(); ?>
-                    <?php else : ?>
-                        <p><?php esc_html_e('لا توجد منتجات حديثة متاحة حاليًا.', 'brando'); ?></p>
-                    <?php endif; ?>
-                    <?php wp_reset_postdata(); ?>
-                <?php else : ?>
-                    <p><?php esc_html_e('سيتم عرض أحدث المنتجات هنا بعد تفعيل WooCommerce.', 'brando'); ?></p>
-                <?php endif; ?>
+                        ?>
+                            <li class="product type-product brando-new-arrival-card">
+                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="<?php echo esc_url($card['url']); ?>">
+                                    <img src="<?php echo esc_url($card['image']); ?>" alt="<?php echo esc_attr($card['name']); ?>" loading="lazy" decoding="async">
+                                    <h2 class="woocommerce-loop-product__title"><?php echo esc_html($card['name']); ?></h2>
+                                </a>
+                                <span class="price">
+                                    <?php if (!empty($card['real'])) : ?>
+                                        <?php echo wp_kses_post($card['price_html']); ?>
+                                    <?php else : ?>
+                                        <?php echo esc_html($card['price_text']); ?>
+                                    <?php endif; ?>
+                                </span>
+                                <a class="<?php echo esc_attr($new_cart_classes); ?>" href="<?php echo esc_url($card['cart_url']); ?>"<?php if (!empty($card['real'])) : ?> data-product_id="<?php echo esc_attr((string) $card['id']); ?>" data-product_sku="<?php echo esc_attr($card['sku']); ?>" data-quantity="1" rel="nofollow"<?php endif; ?>><?php echo esc_html($card['cart_text']); ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
