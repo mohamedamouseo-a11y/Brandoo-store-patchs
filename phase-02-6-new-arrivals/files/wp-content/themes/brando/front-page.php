@@ -325,8 +325,35 @@ $brando_best_sellers = array_slice($brando_best_sellers, 0, 4);
             </header>
 
             <div class="brando-new-arrivals__products">
-                <?php if (class_exists('WooCommerce')) : ?>
-                    <?php echo do_shortcode('[products limit="4" columns="4" orderby="date" order="DESC" visibility="visible"]'); ?>
+                <?php if (class_exists('WooCommerce') && function_exists('wc_get_template_part')) : ?>
+                    <?php
+                    $brando_new_arrivals_query = new WP_Query([
+                        'post_type'           => 'product',
+                        'post_status'         => 'publish',
+                        'posts_per_page'      => 4,
+                        'orderby'             => 'date',
+                        'order'               => 'DESC',
+                        'no_found_rows'       => true,
+                        'ignore_sticky_posts' => true,
+                    ]);
+                    ?>
+                    <?php if ($brando_new_arrivals_query->have_posts()) : ?>
+                        <?php woocommerce_product_loop_start(); ?>
+                        <?php while ($brando_new_arrivals_query->have_posts()) : $brando_new_arrivals_query->the_post(); ?>
+                            <?php
+                            global $product;
+                            $product = wc_get_product(get_the_ID());
+                            if (!$product || !$product->is_visible()) {
+                                continue;
+                            }
+                            wc_get_template_part('content', 'product');
+                            ?>
+                        <?php endwhile; ?>
+                        <?php woocommerce_product_loop_end(); ?>
+                    <?php else : ?>
+                        <p><?php esc_html_e('لا توجد منتجات حديثة متاحة حاليًا.', 'brando'); ?></p>
+                    <?php endif; ?>
+                    <?php wp_reset_postdata(); ?>
                 <?php else : ?>
                     <p><?php esc_html_e('سيتم عرض أحدث المنتجات هنا بعد تفعيل WooCommerce.', 'brando'); ?></p>
                 <?php endif; ?>
