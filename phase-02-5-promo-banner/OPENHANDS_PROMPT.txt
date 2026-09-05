@@ -1,0 +1,32 @@
+Apply PUBLIC patch only:
+mohamedamouseo-a11y/Brandoo-store-patchs/main
+phase-02-5-promo-banner/files/
+
+Copy recursively preserving paths. No delete/reset.
+
+Verify:
+- THEME_VERSION=0.2.5
+- PHP lint
+- HOME/WP_ADMIN=200
+- promo-banner.css=200
+- `عروض الربيع` renders
+- `خصم حتى 30%` renders
+- Hero + Categories + Best Sellers still visible
+
+No private repo.
+No Git.
+No Phase 02.6.
+
+Return only:
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+PROMO_CSS=
+PROMO_TITLE=
+PROMO_DISCOUNT=
+HERO_VISIBLE=
+CATEGORIES_VISIBLE=
+BEST_SELLERS_VISIBLE=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
