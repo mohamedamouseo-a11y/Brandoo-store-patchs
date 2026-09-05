@@ -1,0 +1,190 @@
+/* === BRANDO LUXURY FINAL v0.4.0 — CONSOLIDATED === */
+
+/* --- COLOR SYSTEM --- */
+:root {
+    --bl-black: #0a0a0a;
+    --bl-charcoal: #161616;
+    --bl-warm-white: #f7f6f3;
+    --bl-cream: #f0eee9;
+    --bl-accent: #c85a0a;
+    --bl-text: #2a2a2a;
+    --bl-muted: #777;
+}
+
+body.brando-site { background: var(--bl-warm-white); color: var(--bl-text); }
+
+/* --- HERO: DARK CINEMATIC WITH IMAGE VISIBLE --- */
+.brando-hero { background: var(--bl-black); }
+.brando-hero__frame, .brando-hero__media { min-height: 580px; }
+.brando-hero__media {
+    background-image: linear-gradient(90deg, rgba(0,0,0,.02) 0%, rgba(0,0,0,.15) 50%, rgba(10,10,10,.72) 100%) !important;
+}
+.brando-hero__content {
+    background: radial-gradient(ellipse at 80% 20%, rgba(200,90,10,.05), transparent 55%), var(--bl-black);
+    padding: 72px clamp(36px, 5vw, 90px);
+}
+.brando-hero__title {
+    font-size: clamp(46px, 5.2vw, 76px); line-height: 0.96;
+    letter-spacing: -0.025em; margin-bottom: 24px; color: #fff;
+}
+.brando-hero__title strong { color: var(--bl-accent); margin-top: 10px; }
+.brando-hero__lead {
+    font-size: 18px; line-height: 1.85; color: #d8d6d2;
+    max-width: 460px; margin-bottom: 36px; font-weight: 300;
+}
+.brando-hero__cta {
+    min-height: 58px; padding: 0 38px; border-radius: 4px;
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+    background: var(--bl-accent); box-shadow: 0 14px 36px rgba(200,90,10,.22);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.brando-hero__cta:hover { background: #a84b08; transform: translateY(-2px); box-shadow: 0 18px 44px rgba(200,90,10,.32); }
+.brando-hero__benefits { background: rgba(12,12,12,.97); border-top: 1px solid rgba(255,255,255,.04); min-height: 76px; }
+.brando-hero__benefit { font-size: 12.5px; letter-spacing: 0.02em; color: #aaa; gap: 12px; }
+.brando-hero__benefit svg { stroke: var(--bl-accent); width: 24px; height: 24px; }
+
+/* --- CATEGORIES: PREMIUM KITCHEN DIRECTION --- */
+.brando-categories { padding: 96px 0 112px; background: var(--bl-warm-white); }
+.brando-categories__eyebrow {
+    color: var(--bl-accent); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 14px;
+}
+.brando-categories__title { font-size: clamp(32px, 3.8vw, 48px); color: var(--bl-black); letter-spacing: -0.02em; }
+.brando-category-card__media {
+    border-radius: 14px; border: none;
+    box-shadow: 0 14px 36px rgba(0,0,0,.06); overflow: hidden;
+}
+.brando-category-card__media::after { background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.3) 100%); }
+.brando-category-card:hover .brando-category-card__media img { transform: scale(1.05); }
+.brando-category-card__name { font-size: 15px; font-weight: 700; color: var(--bl-black); letter-spacing: -0.01em; padding-top: 16px; }
+.brando-category-card__hint { font-size: 11.5px; color: var(--bl-muted); letter-spacing: 0.02em; margin-top: 5px; }
+.brando-category-card__icon { background: var(--bl-accent); box-shadow: 0 6px 20px rgba(200,90,10,.28); width: 36px; height: 36px; }
+
+/* --- BEST SELLERS: PRIMARY COMMERCE SHOWCASE --- */
+.brando-best-sellers { padding: 96px 0 112px; background: var(--bl-cream); }
+.brando-best-sellers__eyebrow { color: var(--bl-accent); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; }
+.brando-best-sellers__title { font-size: clamp(32px, 3.8vw, 48px); color: var(--bl-black); letter-spacing: -0.02em; }
+.brando-product-card {
+    border-radius: 14px; border: none;
+    box-shadow: 0 10px 32px rgba(0,0,0,.05); background: #fff;
+    transition: all 0.35s cubic-bezier(.25,.8,.25,1);
+}
+.brando-product-card:hover { box-shadow: 0 20px 48px rgba(0,0,0,.1); transform: translateY(-5px); }
+.brando-product-card__media { aspect-ratio: 4/5; border-radius: 14px 14px 0 0; }
+.brando-product-card__name { font-size: 15.5px; font-weight: 700; color: var(--bl-black); letter-spacing: -0.01em; line-height: 1.45; }
+.brando-product-card__price { font-size: 17px; font-weight: 700; color: var(--bl-black); margin-top: 8px; }
+.brando-product-card__cart, .brando-product-card .button, .brando-product-card .add_to_cart_button {
+    border-radius: 4px !important; font-size: 11.5px !important; letter-spacing: 0.06em;
+    text-transform: uppercase; font-weight: 700 !important; min-height: 42px;
+    padding: 11px 18px !important; background: var(--bl-black) !important; color: #fff !important;
+    box-shadow: none !important; transition: all 0.25s ease;
+}
+.brando-product-card__cart:hover, .brando-product-card .button:hover, .brando-product-card .add_to_cart_button:hover {
+    background: var(--bl-accent) !important; transform: translateY(-1px);
+}
+.brando-product-card__wishlist { background: rgba(255,255,255,.95); box-shadow: 0 3px 12px rgba(0,0,0,.07); width: 38px; height: 38px; }
+
+/* --- NEW ARRIVALS: ELEGANT BUT QUIETER --- */
+.brando-new-arrivals { padding: 96px 0 112px; background: var(--bl-warm-white); }
+.brando-new-arrivals__eyebrow { color: var(--bl-muted); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; }
+.brando-new-arrivals__title { font-size: clamp(28px, 3.2vw, 40px); color: var(--bl-black); letter-spacing: -0.02em; }
+.brando-new-arrivals .woocommerce ul.products li.product {
+    border-radius: 14px; border: none; box-shadow: 0 6px 24px rgba(0,0,0,.04); background: #fff;
+}
+.brando-new-arrivals .woocommerce ul.products li.product:hover { box-shadow: 0 14px 36px rgba(0,0,0,.07); }
+.brando-new-arrivals .woocommerce ul.products li.product a img { aspect-ratio: 4/5; border-radius: 14px 14px 0 0; }
+.brando-new-arrivals .woocommerce ul.products li.product .woocommerce-loop-product__title {
+    font-size: 14.5px !important; font-weight: 600 !important; color: var(--bl-text) !important;
+}
+.brando-new-arrivals .woocommerce ul.products li.product .price { font-size: 16px !important; color: var(--bl-black) !important; font-weight: 700 !important; }
+.brando-new-arrivals .woocommerce ul.products li.product .button,
+.brando-new-arrivals .woocommerce ul.products li.product .add_to_cart_button {
+    border-radius: 4px !important; font-size: 10.5px !important; letter-spacing: 0.06em;
+    text-transform: uppercase; font-weight: 700 !important; min-height: 38px;
+    background: var(--bl-charcoal) !important; box-shadow: none !important;
+}
+.brando-new-arrivals .woocommerce ul.products li.product:before {
+    background: var(--bl-charcoal); font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 5px 10px; border-radius: 4px;
+}
+
+/* --- PROMO BANNER: LUXURY CAMPAIGN --- */
+.brando-promo { padding: 104px 0 112px; }
+.brando-promo__card { min-height: 440px; border-radius: 22px; background: var(--bl-black); box-shadow: 0 28px 72px rgba(0,0,0,.16); }
+.brando-promo__content { padding: 60px 68px; background: linear-gradient(135deg, #0a0a0a 0%, #131313 60%, #181818 100%); }
+.brando-promo__eyebrow { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bl-accent); font-weight: 700; margin-bottom: 18px; }
+.brando-promo__eyebrow::before { background: var(--bl-accent); width: 30px; }
+.brando-promo__title { font-size: clamp(36px, 4.8vw, 58px); line-height: 1.02; letter-spacing: -0.025em; color: #fff; }
+.brando-promo__title strong { color: var(--bl-accent); }
+.brando-promo__text { font-size: 15.5px; line-height: 1.95; color: #a5a5a5; margin-top: 22px; font-weight: 300; }
+.brando-promo__cta {
+    min-height: 52px; padding: 15px 34px; border-radius: 4px;
+    font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+    background: var(--bl-accent); box-shadow: 0 12px 32px rgba(200,90,10,.28); margin-top: 32px;
+}
+.brando-promo__cta:hover { background: #a84b08; box-shadow: 0 16px 40px rgba(200,90,10,.38); }
+.brando-promo__badge { width: 106px; height: 106px; border: 1px solid rgba(255,255,255,.12); background: var(--bl-accent); box-shadow: 0 14px 40px rgba(0,0,0,.28); }
+.brando-promo__badge span { font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; }
+.brando-promo__badge strong { font-size: 26px; }
+
+/* --- TRUST BAR --- */
+.brando-trust { border-top: 1px solid #e6e4df; border-bottom: 1px solid #e6e4df; background: var(--bl-warm-white); }
+.brando-trust__item { padding: 34px 26px; gap: 16px; border-inline-start-color: #e6e4df; }
+.brando-trust__icon { background: rgba(200,90,10,.07); color: var(--bl-accent); width: 48px; height: 48px; border-radius: 13px; }
+.brando-trust__icon svg { stroke: var(--bl-accent); }
+.brando-trust__item h3 { font-size: 14.5px; font-weight: 700; color: var(--bl-black); letter-spacing: -0.01em; }
+.brando-trust__item p { font-size: 12px; color: var(--bl-muted); margin-top: 5px; }
+
+/* --- NEWSLETTER: INTEGRATED & PREMIUM --- */
+.brando-newsletter { padding: 88px 0; background: var(--bl-cream); }
+.brando-newsletter__inner {
+    background: linear-gradient(135deg, #0a0a0a 0%, #151515 100%);
+    border-radius: 22px; padding: 56px 60px;
+    box-shadow: 0 22px 56px rgba(0,0,0,.11); gap: 56px;
+}
+.brando-newsletter__eyebrow { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bl-accent); font-weight: 700; margin-bottom: 12px; }
+.brando-newsletter h2 { font-size: clamp(26px, 3.3vw, 42px); letter-spacing: -0.02em; line-height: 1.12; }
+.brando-newsletter p { font-size: 14.5px; color: #999; margin-top: 14px; font-weight: 300; }
+.brando-newsletter__form { border-radius: 7px; border-color: rgba(255,255,255,.07); background: rgba(255,255,255,.03); padding: 5px; }
+.brando-newsletter__form input { font-size: 13.5px; height: 50px; color: #fff; }
+.brando-newsletter__form input::placeholder { color: #666; }
+.brando-newsletter__form button {
+    min-height: 50px; padding: 13px 26px; border-radius: 5px;
+    font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+    background: var(--bl-accent);
+}
+.brando-newsletter__form button:hover { background: #a84b08; }
+
+/* --- FOOTER: RICH LUXURY CLOSURE --- */
+.site-footer.brando-footer { background: #050505 !important; }
+.brando-footer__inner { padding: 76px 0 30px; }
+.brando-footer__grid { gap: 60px; padding-bottom: 52px; }
+.brando-footer__brand-name { font-size: 30px; letter-spacing: -0.02em; color: var(--bl-accent); margin-bottom: 18px; }
+.brando-footer__brand p { font-size: 13.5px; line-height: 1.95; color: #777; font-weight: 300; }
+.brando-footer__social a { border-color: #1e1e1e; background: #0e0e0e; width: 40px; height: 40px; font-size: 9.5px; letter-spacing: 0.02em; transition: all 0.25s ease; }
+.brando-footer__social a:hover { border-color: var(--bl-accent); color: var(--bl-accent); background: rgba(200,90,10,.05); }
+.brando-footer__column h3 { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: #fff; margin-bottom: 22px; }
+.brando-footer__column a { font-size: 12.5px; color: #777; line-height: 1.75; font-weight: 300; transition: color 0.25s ease; }
+.brando-footer__column a:hover { color: var(--bl-accent); }
+.brando-footer__contact p { color: #999; font-weight: 300; }
+.brando-footer__contact span { color: #555; font-size: 10.5px; }
+.brando-footer__payments { border-top-color: #181818; border-bottom-color: #181818; padding: 26px 0; }
+.brando-footer__payments > span { font-size: 10.5px; color: #555; letter-spacing: 0.04em; }
+.brando-footer__payment-list b { border-color: #1e1e1e; background: #0e0e0e; color: #888; font-size: 9.5px; letter-spacing: 0.04em; padding: 6px 13px; border-radius: 5px; min-height: 32px; }
+.brando-footer__bottom { color: #444 !important; }
+.brando-footer__bottom small, .brando-footer__bottom span { font-size: 10.5px; color: #444; font-weight: 300; }
+
+/* --- RESPONSIVE --- */
+@media(max-width:900px) {
+    .brando-hero__frame, .brando-hero__media { min-height: 380px; }
+    .brando-hero__content { padding: 44px 28px 48px; }
+    .brando-promo__card { min-height: 360px; border-radius: 18px; }
+    .brando-promo__content { padding: 40px 32px; }
+    .brando-newsletter__inner { padding: 36px 28px; }
+}
+@media(max-width:560px) {
+    .brando-hero__cta { min-height: 50px; padding: 0 26px; }
+    .brando-promo__card { border-radius: 14px; }
+    .brando-newsletter__inner { border-radius: 14px; padding: 28px 22px; }
+    .brando-footer__inner { padding-top: 52px; }
+}
