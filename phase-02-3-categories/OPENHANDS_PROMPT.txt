@@ -1,0 +1,20 @@
+Apply PUBLIC patch only:
+mohamedamouseo-a11y/Brandoo-store-patchs/main
+phase-02-3-categories/files/
+
+Copy recursively preserving paths. No delete/reset.
+Verify PHP lint, HOME/WP_ADMIN=200, categories.css=200, main.css restored (>1KB), rtl.css restored (>100B), heading `تسوق حسب الفئة`, and 6 category cards render.
+No private repo, no Git, no Phase 02.4.
+
+Return only:
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+CATEGORIES_CSS=
+MAIN_CSS_RESTORED=
+RTL_CSS_RESTORED=
+CATEGORIES_TITLE=
+CATEGORY_CARDS=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
