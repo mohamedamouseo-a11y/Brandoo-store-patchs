@@ -3,18 +3,14 @@ mohamedamouseo-a11y/Brandoo-store-patchs/main
 phase-02-3-categories/files/
 
 Copy recursively preserving paths. No delete/reset.
-Verify PHP lint, HOME/WP_ADMIN=200, categories.css=200, main.css restored (>1KB), rtl.css restored (>100B), heading `تسوق حسب الفئة`, and 6 category cards render.
+Verify PHP lint, THEME_VERSION=0.2.3.1, WP_ADMIN=200, and functions.php has an is_admin() guard before forcing dir="rtl".
+Do not change WooCommerce visibility yet.
 No private repo, no Git, no Phase 02.4.
 
 Return only:
 THEME_VERSION=
 PHP_LINT=
-HOME=
 WP_ADMIN=
-CATEGORIES_CSS=
-MAIN_CSS_RESTORED=
-RTL_CSS_RESTORED=
-CATEGORIES_TITLE=
-CATEGORY_CARDS=
+ADMIN_RTL_GUARD=
 PRIVATE_REPO_ACCESSED=NO
 BLOCKERS=
