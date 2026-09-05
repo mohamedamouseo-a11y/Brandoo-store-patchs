@@ -60,19 +60,21 @@ footer = read("footer.php")
 motion = read("assets/js/luxury-motion.js")
 css = read("assets/css/luxury-v3.css")
 
-# Safety: this finishing pass must not alter template structure/content.
-section_markers = [
+# Safety: this finishing pass must preserve the current template composition.
+front_markers = [
     'class="brando-hero"',
     'id="categories"',
     'id="best-sellers"',
     'class="brando-promo"',
     'class="brando-new-arrivals"',
-    'class="brando-trust"',
-    'class="brando-newsletter"',
 ]
-positions = [front.find(marker) for marker in section_markers]
-if any(pos < 0 for pos in positions) or positions != sorted(positions):
+front_positions = [front.find(marker) for marker in front_markers]
+if any(pos < 0 for pos in front_positions) or front_positions != sorted(front_positions):
     raise SystemExit("Homepage section structure/order check failed")
+
+footer_markers = ["brando-trust", "brando-newsletter", "brando-footer"]
+if any(marker not in footer for marker in footer_markers):
+    raise SystemExit("Trust/newsletter/footer structure check failed")
 
 for forbidden in ["999 ر.س", "WELCOME10", "+966", "brando.sa"]:
     if forbidden in header + "\n" + front + "\n" + footer:
@@ -236,7 +238,6 @@ finish_css = r'''/* BRANDO LUXURY FINISH v0.5.3 START */
 
 css_new = css + finish_css + "\n"
 
-# Final safety checks on the resulting stylesheet.
 for required_css in [
     "grid-template-columns:repeat(6,minmax(0,1fr))",
     "grid-template-columns:repeat(4,minmax(0,1fr))",
