@@ -1,0 +1,22 @@
+Apply PUBLIC patch only:
+mohamedamouseo-a11y/Brandoo-store-patchs/main
+phase-02-4-best-sellers/files/
+
+Copy recursively preserving paths. No delete/reset.
+Verify PHP lint, THEME_VERSION=0.2.4, HOME/WP_ADMIN=200, best-sellers.css=200, heading `الأكثر مبيعًا`, and 4 product cards render.
+Confirm Phase 02.3 Hero/Categories still render.
+No private repo, no Git, no Phase 02.5.
+
+Return only:
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+BEST_SELLERS_CSS=
+BEST_SELLERS_TITLE=
+PRODUCT_CARDS=
+REAL_WOO_PRODUCTS_USED=
+HERO_VISIBLE=
+CATEGORIES_VISIBLE=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
