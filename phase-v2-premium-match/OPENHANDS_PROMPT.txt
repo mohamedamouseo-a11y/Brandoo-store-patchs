@@ -1,0 +1,38 @@
+Apply Brando Homepage V2 Premium Match from exact PUBLIC commit provided by Ahmed.
+
+Repo: mohamedamouseo-a11y/Brandoo-store-patchs
+Path: phase-v2-premium-match/files/
+
+Copy ONLY:
+- wp-content/themes/brando/style.css
+- wp-content/themes/brando/functions.php
+- wp-content/themes/brando/assets/css/premium-v2.css
+
+Force fresh download. Overwrite matching live files only.
+Do NOT touch front-page.php, footer.php, main.css, rtl.css, JS, content, WooCommerce data, or section order.
+
+Verify:
+- THEME_VERSION=0.3.0
+- PHP lint PASS
+- HOME/WP_ADMIN=200
+- premium-v2.css=200
+- all homepage sections visible
+- front-page.php unchanged
+- footer.php unchanged
+- RTL preserved
+
+No private repo. No Git.
+
+Return only:
+PATCH_COMMIT=
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+PREMIUM_V2_CSS=
+ALL_SECTIONS_VISIBLE=
+FRONT_PAGE_UNCHANGED=
+FOOTER_UNCHANGED=
+RTL_OK=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
