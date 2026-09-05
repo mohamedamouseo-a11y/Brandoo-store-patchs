@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('BRANDO_THEME_VERSION', '0.2.3');
+define('BRANDO_THEME_VERSION', '0.2.3.1');
 
 function brando_setup(): void
 {
@@ -52,6 +52,10 @@ add_action('wp_enqueue_scripts', 'brando_enqueue_assets');
 
 function brando_force_rtl_language_attributes(string $output): string
 {
+    if (is_admin()) {
+        return $output;
+    }
+
     if (preg_match('/\sdir=("|\')[^"\']*("|\')/i', $output)) {
         return (string) preg_replace('/\sdir=("|\')[^"\']*("|\')/i', ' dir="rtl"', $output, 1);
     }
