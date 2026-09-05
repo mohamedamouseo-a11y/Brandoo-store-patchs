@@ -1,0 +1,64 @@
+html{scroll-padding-top:112px}
+body.brando-site{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+.brando-home{overflow:hidden}
+.brando-home section[id]{scroll-margin-top:112px}
+
+.brando-categories__title,.brando-best-sellers__title,.brando-new-arrivals__title,.brando-promo__title,.brando-newsletter h2{text-wrap:balance}
+.brando-categories__subtitle,.brando-best-sellers__subtitle,.brando-new-arrivals__subtitle,.brando-promo__text,.brando-newsletter p{text-wrap:pretty}
+
+.brando-hero__cta,.brando-best-sellers__all,.brando-new-arrivals__all,.brando-promo__cta,.brando-product-card__cart,.brando-new-arrivals .woocommerce ul.products li.product .button,.brando-newsletter__form button{cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+
+.brando-category-card__media,.brando-product-card,.brando-new-arrivals .woocommerce ul.products li.product,.brando-promo__card,.brando-newsletter__inner{backface-visibility:hidden}
+.brando-category-card__media img,.brando-product-card__media img,.brando-new-arrivals .woocommerce ul.products li.product a img{backface-visibility:hidden}
+
+.brando-product-card__content{min-height:166px}
+.brando-product-card__footer{min-height:58px}
+.brando-product-card__cart{min-width:112px}
+
+.brando-new-arrivals .woocommerce ul.products{align-items:stretch}
+.brando-new-arrivals .woocommerce ul.products li.product{display:flex!important;height:100%;flex-direction:column}
+.brando-new-arrivals .woocommerce ul.products li.product a.woocommerce-LoopProduct-link{display:flex;flex:1;flex-direction:column}
+.brando-new-arrivals .woocommerce ul.products li.product .woocommerce-loop-product__title{flex:1}
+.brando-new-arrivals .woocommerce ul.products li.product .price{min-height:28px}
+.brando-new-arrivals .woocommerce ul.products li.product .button{align-self:flex-start;min-width:105px;margin-top:15px!important}
+
+.brando-trust__item,.brando-footer__column,.brando-footer__brand{min-width:0}
+.brando-footer__column a{display:inline-block;padding-block:2px}
+.brando-footer__payment-list b{white-space:nowrap}
+
+.brando-newsletter__form:focus-within{border-color:rgba(255,106,0,.55);box-shadow:0 0 0 4px rgba(255,106,0,.12)}
+.brando-newsletter__form input:focus{outline:0}
+
+.brando-action:focus-visible,.brando-topbar__close:focus-visible,.brando-mobile-toggle:focus-visible,.site-nav__menu>li>a:focus-visible,.brando-hero__cta:focus-visible,.brando-best-sellers__all:focus-visible,.brando-new-arrivals__all:focus-visible,.brando-promo__cta:focus-visible,.brando-product-card__cart:focus-visible,.brando-new-arrivals .woocommerce ul.products li.product a:focus-visible,.brando-newsletter__form button:focus-visible,.brando-footer a:focus-visible{outline:3px solid rgba(255,106,0,.48);outline-offset:3px}
+
+@media(max-width:1100px){
+    html{scroll-padding-top:96px}
+    .brando-home section[id]{scroll-margin-top:96px}
+    .brando-product-card__content{min-height:156px}
+}
+
+@media(max-width:700px){
+    html{scroll-padding-top:82px}
+    .brando-home section[id]{scroll-margin-top:82px}
+    .brando-categories__title,.brando-best-sellers__title,.brando-new-arrivals__title{font-size:clamp(28px,8vw,36px)}
+    .brando-best-sellers__head,.brando-new-arrivals__head{gap:18px}
+    .brando-product-card__content{min-height:0}
+    .brando-product-card__footer{min-height:0}
+    .brando-new-arrivals .woocommerce ul.products li.product .button{width:calc(100% - 34px);align-self:stretch}
+    .brando-newsletter__inner{box-shadow:0 12px 30px rgba(0,0,0,.09)}
+}
+
+@media(max-width:520px){
+    .brando-best-sellers__all,.brando-new-arrivals__all{min-height:42px}
+    .brando-footer__bottom{gap:8px}
+}
+
+@media(hover:none){
+    .brando-category-card:hover,.brando-product-card:hover,.brando-new-arrivals .woocommerce ul.products li.product:hover,.brando-hero__cta:hover,.brando-best-sellers__all:hover,.brando-new-arrivals__all:hover,.brando-promo__cta:hover,.brando-newsletter__form button:hover{transform:none}
+    .brando-category-card:hover .brando-category-card__media img,.brando-product-card:hover .brando-product-card__media img,.brando-new-arrivals .woocommerce ul.products li.product:hover a img{transform:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .brando-site *,.brando-site *::before,.brando-site *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
