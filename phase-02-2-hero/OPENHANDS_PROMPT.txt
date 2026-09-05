@@ -1,0 +1,17 @@
+Apply PUBLIC patch only:
+mohamedamouseo-a11y/Brandoo-store-patchs/main
+phase-02-2-hero/files/
+
+Copy recursively preserving paths. PHP lint changed PHP, keep brando active, test HOME/WP_ADMIN and hero.css=200.
+No private repo, no Git, no Phase 02.3.
+
+Return only:
+THEME_VERSION=
+PHP_LINT=
+HOME=
+WP_ADMIN=
+HERO_CSS=
+HEADLINE=
+CTA=
+PRIVATE_REPO_ACCESSED=NO
+BLOCKERS=
