@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('BRANDO_THEME_VERSION', '0.1.0');
+define('BRANDO_THEME_VERSION', '0.1.1');
 
 function brando_setup(): void
 {
@@ -43,14 +43,13 @@ function brando_enqueue_assets(): void
         BRANDO_THEME_VERSION
     );
 
-    if (is_rtl()) {
-        wp_enqueue_style(
-            'brando-rtl',
-            get_template_directory_uri() . '/assets/css/rtl.css',
-            ['brando-main'],
-            BRANDO_THEME_VERSION
-        );
-    }
+    // Brando is an Arabic-first storefront, so RTL layout is always loaded.
+    wp_enqueue_style(
+        'brando-rtl',
+        get_template_directory_uri() . '/assets/css/rtl.css',
+        ['brando-main'],
+        BRANDO_THEME_VERSION
+    );
 
     wp_enqueue_script(
         'brando-main',
@@ -62,9 +61,20 @@ function brando_enqueue_assets(): void
 }
 add_action('wp_enqueue_scripts', 'brando_enqueue_assets');
 
+function brando_force_rtl_language_attributes(string $output): string
+{
+    if (preg_match('/\sdir=("|\')[^"\']*("|\')/i', $output)) {
+        return (string) preg_replace('/\sdir=("|\')[^"\']*("|\')/i', ' dir="rtl"', $output, 1);
+    }
+
+    return trim($output) . ' dir="rtl"';
+}
+add_filter('language_attributes', 'brando_force_rtl_language_attributes');
+
 function brando_body_classes(array $classes): array
 {
     $classes[] = 'brando-site';
+    $classes[] = 'brando-rtl';
 
     if (class_exists('WooCommerce')) {
         $classes[] = 'brando-woocommerce';
