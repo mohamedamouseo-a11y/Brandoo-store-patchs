@@ -1,0 +1,36 @@
+.brando-best-sellers{position:relative;z-index:1;padding:76px 0 96px;background:#f7f7f7;color:#111;direction:rtl}
+.brando-best-sellers__inner{width:min(calc(100% - 48px),1260px);margin:0 auto}
+.brando-best-sellers__head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:30px}
+.brando-best-sellers__copy{max-width:720px}
+.brando-best-sellers__eyebrow{display:block;margin-bottom:7px;color:#ff6a00;font-size:14px;font-weight:800}
+.brando-best-sellers__title{margin:0;font-size:clamp(30px,3vw,42px);line-height:1.2;font-weight:900}
+.brando-best-sellers__subtitle{margin:9px 0 0;color:#707070;font-size:15px;line-height:1.8}
+.brando-best-sellers__all{flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border:1px solid #d9d9d9;border-radius:999px;background:#fff;color:#111;font-size:13px;font-weight:800;transition:border-color .2s ease,color .2s ease,transform .2s ease}
+.brando-best-sellers__all:hover{border-color:#ff6a00;color:#ff6a00;transform:translateY(-2px)}
+.brando-best-sellers__all svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.brando-best-sellers__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;align-items:stretch}
+.brando-product-card{display:flex;min-width:0;height:100%;flex-direction:column;overflow:hidden;border:1px solid #e8e8e8;border-radius:18px;background:#fff;box-shadow:0 8px 28px rgba(0,0,0,.045);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.brando-product-card:hover{transform:translateY(-5px);border-color:#dedede;box-shadow:0 15px 34px rgba(0,0,0,.08)}
+.brando-product-card__media{position:relative;display:block;overflow:hidden;aspect-ratio:1/1;background:#efefef}
+.brando-product-card__media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.brando-product-card:hover .brando-product-card__media img{transform:scale(1.04)}
+.brando-product-card__wishlist{position:absolute;z-index:2;top:13px;left:13px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.94);color:#111;box-shadow:0 5px 16px rgba(0,0,0,.09);pointer-events:none}
+.brando-product-card__wishlist svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.brando-product-card__content{display:flex;flex:1;flex-direction:column;padding:17px 17px 18px}
+.brando-product-card__name{display:-webkit-box;min-height:48px;margin:0;color:#111;font-size:16px;font-weight:900;line-height:1.5;overflow:hidden;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.brando-product-card__rating{display:flex;align-items:center;gap:7px;margin-top:9px;min-height:22px}
+.brando-product-card__stars{display:flex;direction:ltr;gap:1px;font-size:14px;line-height:1;color:#d1d1d1}
+.brando-product-card__stars .is-filled{color:#ff6a00}
+.brando-product-card__reviews{color:#8a8a8a;font-size:12px}
+.brando-product-card__footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:17px}
+.brando-product-card__price{min-width:0;color:#111;font-size:18px;font-weight:900;line-height:1.35}
+.brando-product-card__price del{margin-inline-start:4px;color:#9a9a9a;font-size:12px;font-weight:500}
+.brando-product-card__price ins{color:#ff6a00;text-decoration:none}
+.brando-product-card__price .woocommerce-Price-currencySymbol{font-size:.78em}
+.brando-product-card__cart{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:9px 13px;border-radius:11px;background:#ff6a00;color:#fff!important;font-size:12px;font-weight:900;line-height:1.2;box-shadow:0 6px 16px rgba(255,106,0,.22);transition:background .2s ease,transform .2s ease,box-shadow .2s ease}
+.brando-product-card__cart:hover{background:#e95f00;color:#fff!important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(255,106,0,.28)}
+.brando-product-card__cart svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.brando-product-card:focus-within{outline:3px solid rgba(255,106,0,.22);outline-offset:3px}
+@media(max-width:980px){.brando-best-sellers__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}}
+@media(max-width:700px){.brando-best-sellers{padding:56px 0 70px}.brando-best-sellers__inner{width:min(calc(100% - 28px),1260px)}.brando-best-sellers__head{align-items:flex-start}.brando-best-sellers__subtitle{font-size:14px}.brando-product-card__footer{align-items:flex-end;flex-direction:column}.brando-product-card__price,.brando-product-card__cart{width:100%}.brando-product-card__cart{min-height:42px}}
+@media(max-width:520px){.brando-best-sellers__head{display:block}.brando-best-sellers__all{margin-top:16px}.brando-best-sellers__grid{grid-template-columns:1fr;gap:16px}.brando-product-card__media{aspect-ratio:4/3}.brando-product-card__name{min-height:auto}}
