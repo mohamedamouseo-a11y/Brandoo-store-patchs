@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('BRANDO_THEME_VERSION', '0.3.3');
+define('BRANDO_THEME_VERSION', '0.4.0');
 
 function brando_setup(): void
 {
@@ -47,8 +47,7 @@ function brando_enqueue_assets(): void
         wp_enqueue_style('brando-best-sellers', get_template_directory_uri() . '/assets/css/best-sellers.css', ['brando-categories'], BRANDO_THEME_VERSION);
         wp_enqueue_style('brando-promo-banner', get_template_directory_uri() . '/assets/css/promo-banner.css', ['brando-best-sellers'], BRANDO_THEME_VERSION);
         wp_enqueue_style('brando-new-arrivals', get_template_directory_uri() . '/assets/css/new-arrivals.css', ['brando-promo-banner'], BRANDO_THEME_VERSION);
-        wp_enqueue_style('brando-final-polish', get_template_directory_uri() . '/assets/css/final-polish.css', ['brando-new-arrivals', 'brando-footer'], BRANDO_THEME_VERSION);
-        wp_enqueue_style('brando-premium-v2', get_template_directory_uri() . '/assets/css/premium-v2.css', ['brando-final-polish'], BRANDO_THEME_VERSION);
+        wp_enqueue_style('brando-luxury-pass', get_template_directory_uri() . '/assets/css/luxury-pass.css', ['brando-new-arrivals', 'brando-footer'], BRANDO_THEME_VERSION);
     }
 
     wp_enqueue_script('brando-main', get_template_directory_uri() . '/assets/js/main.js', [], BRANDO_THEME_VERSION, true);
