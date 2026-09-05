@@ -2,7 +2,7 @@ Apply PUBLIC patch only:
 mohamedamouseo-a11y/Brandoo-store-patchs/main
 phase-02-2-hero/files/
 
-Copy recursively preserving paths. PHP lint changed PHP, keep brando active, test HOME/WP_ADMIN and hero.css=200.
+Copy recursively preserving paths. PHP lint changed PHP, keep brando active, test HOME/WP_ADMIN and hero.css=200. Verify hero image is visible, benefits bar spans full width, and headline renders exactly: أسلوب عصري لمطبخك.
 No private repo, no Git, no Phase 02.3.
 
 Return only:
@@ -11,6 +11,8 @@ PHP_LINT=
 HOME=
 WP_ADMIN=
 HERO_CSS=
+HERO_IMAGE_VISIBLE=
+BENEFITS_FULL_WIDTH=
 HEADLINE=
 CTA=
 PRIVATE_REPO_ACCESSED=NO
