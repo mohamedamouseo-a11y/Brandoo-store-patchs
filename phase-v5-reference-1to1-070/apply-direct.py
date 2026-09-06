@@ -10,7 +10,7 @@ if len(sys.argv)!=2: raise SystemExit('Usage: apply-direct.py /absolute/path/to/
 theme=Path(sys.argv[1]).resolve()
 base=Path(__file__).resolve().parent
 required_theme=['style.css','functions.php','header.php','front-page.php','footer.php','assets/css/luxury-v3.css','assets/js/luxury-motion.js']
-required_patch=['header.php','front-page.php','footer.php','reference.css']
+required_patch=['header.php','front-page.php','footer.php','reference.css','compat.css']
 missing=[x for x in required_theme if not (theme/x).is_file()]
 if missing: raise SystemExit('Missing theme files: '+', '.join(missing))
 missing=[x for x in required_patch if not (base/x).is_file()]
@@ -30,10 +30,10 @@ if n!=1: raise SystemExit('Could not update style version')
 fn,n=re.subn(r"define\('BRANDO_THEME_VERSION',\s*'[^']+'\);",f"define('BRANDO_THEME_VERSION', '{V}');",fn,count=1)
 if n!=1: raise SystemExit('Could not update theme version constant')
 
-# Remove prior 0.7 layer if reapplying, then append the reference layer last.
-css=re.sub(re.escape(MARK_START)+r'.*?'+re.escape(MARK_END),'',css,flags=re.S).rstrip()+'\n\n'+read(base/'reference.css').strip()+'\n'
+css=re.sub(re.escape(MARK_START)+r'.*?'+re.escape(MARK_END),'',css,flags=re.S).rstrip()
+css+='\n\n'+read(base/'reference.css').strip()+'\n'+read(base/'compat.css').strip()+'\n'
 
-# Keep the cinematic engine, but lock the reference hero copy and use three dark kitchen scenes.
+# Preserve the engine but use dark kitchen scenes and lock copy to the reference artwork.
 block_re=re.compile(r'/\* BRANDO CINEMATIC HERO v0\.6\.1 START \*/.*?/\* BRANDO CINEMATIC HERO v0\.6\.1 END \*/',re.S)
 m=block_re.search(js)
 if m:
@@ -43,10 +43,6 @@ if m:
       'https://images.unsplash.com/photo-1776935359460-6c789e972e6a?auto=format&fit=crop&fm=jpg&q=88&w=2200',
       'https://images.unsplash.com/photo-1748050869861-dde6ee2ae683?auto=format&fit=crop&fm=jpg&q=88&w=2200'
     ]
-    i=0
-    def repl_src(match):
-        nonlocal_i=None
-        return match.group(0)
     parts=list(re.finditer(r"src:'https://images\.unsplash\.com/[^']+'",block))
     for idx,match in enumerate(reversed(parts[:3])):
         target=urls[len(parts[:3])-1-idx]
@@ -78,3 +74,4 @@ print('NEWSLETTER_REFERENCE_STRUCTURE=YES')
 print('FOOTER_REFERENCE_STRUCTURE=YES')
 print('WOOCOMMERCE_DATA_PRESERVED=YES')
 print('CINEMATIC_ENGINE_PRESERVED=YES')
+print('LEGACY_CINEMATIC_CSS_NEUTRALIZED=YES')
