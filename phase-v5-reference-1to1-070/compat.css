@@ -1,0 +1,16 @@
+/* BRANDO REFERENCE 1TO1 v0.7.0 COMPAT */
+body.brando-reference-070 .ref-header,
+body.brando-reference-070 .ref-header.is-scrolled{position:relative!important;top:auto!important;background:#050505!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;border:0!important}
+body.admin-bar.brando-reference-070 .ref-header,body.admin-bar.brando-reference-070 .ref-header.is-scrolled{top:auto!important}
+body.brando-reference-070 .brando-hero__frame.ref-hero__frame{height:310px!important;min-height:310px!important}
+body.brando-reference-070 .brando-hero__media.ref-hero__media,
+body.brando-reference-070 .brando-hero__media.ref-hero__media.brando-cinematic-ready{position:relative!important;inset:auto!important;width:100%!important;height:310px!important;min-height:310px!important;filter:none!important;background:#080808!important}
+body.brando-reference-070 .brando-hero__content.ref-hero__content{position:relative!important;inset:auto!important;width:100%!important;height:310px!important;min-height:310px!important;transform:none!important}
+body.brando-reference-070 .brando-hero__title.ref-hero__title{font-size:49px!important;line-height:.94!important;max-width:330px!important}
+body.brando-reference-070 .brando-hero__lead.ref-hero__lead{font-size:14px!important;line-height:1.65!important;max-width:320px!important}
+body.brando-reference-070 .brando-hero__benefits.ref-hero-benefits{height:48px!important;min-height:48px!important;padding:0!important}
+body.brando-reference-070 .brando-product-card.ref-product-card{background:#fff!important;border:1px solid #ddd!important;border-radius:8px!important;padding:0 8px 8px!important;box-shadow:0 1px 4px rgba(0,0,0,.025)!important}
+body.brando-reference-070 .brando-product-card.ref-product-card .ref-product-image{aspect-ratio:auto!important;height:122px!important;box-shadow:none!important;border-radius:0!important}
+body.brando-reference-070 .brando-product-card.ref-product-card .ref-product-image img{width:100%!important;height:100%!important;object-fit:cover!important;filter:none!important}
+body.brando-reference-070 .brando-promo__visual.ref-promo-image{height:150px!important;min-height:150px!important;transform:none!important}
+@media(max-width:980px){body.brando-reference-070 .brando-hero__frame.ref-hero__frame{height:auto!important;min-height:0!important}body.brando-reference-070 .brando-hero__media.ref-hero__media,body.brando-reference-070 .brando-hero__media.ref-hero__media.brando-cinematic-ready{height:300px!important;min-height:300px!important}body.brando-reference-070 .brando-hero__content.ref-hero__content{height:auto!important;min-height:250px!important}}
