@@ -149,12 +149,12 @@ js_finish = r'''/* BRANDO DEMO ART DIRECTION v0.5.5 START */
       return title ? title.textContent.trim() : '';
     });
 
-    // Demo-only guard: apply only while the known four demo product themes are present together.
+    // Demo-only guard: activate only while the known four demo themes coexist.
     const guards = [
-      (t) => /خبز|مخبوز|خبز/.test(t),
+      (t) => /خبز|مخبوز/.test(t),
       (t) => /تقديم|بورسلين/.test(t),
       (t) => /تخزين|محكمة|تنظيم/.test(t),
-      (t) => /تحضير|أدوات/.test(t),
+      (t) => /تحضير/.test(t),
     ];
     const allDemoThemesPresent = guards.every((guard) => normalizedTitles.some(guard));
     if (!allDemoThemesPresent) return;
@@ -173,7 +173,7 @@ js_finish = r'''/* BRANDO DEMO ART DIRECTION v0.5.5 START */
         src: 'https://images.unsplash.com/photo-1676976500593-3dfec0b17754?auto=format&fit=crop&fm=jpg&q=86&w=1100',
       },
       {
-        match: /تحضير|أدوات/,
+        match: /تحضير/,
         src: 'https://images.unsplash.com/photo-1698939586636-98209ecf8516?auto=format&fit=crop&fm=jpg&q=86&w=1100',
       },
     ];
